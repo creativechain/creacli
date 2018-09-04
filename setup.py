@@ -3,23 +3,23 @@
 from setuptools import setup
 import sys
 
-assert sys.version_info[0] == 3, "Piston requires Python > 3"
+assert sys.version_info[0] == 3, "dPayPy requires Python > 3"
 
-__VERSION__ = '0.5.1'
+__VERSION__ = '0.1.1'
 
 setup(
-    name='piston-cli',
+    name='dpay-cli',
     version=__VERSION__,
-    description='Command line tool to interface with the STEEM network',
+    description='Command line tool to interface with the dPay network',
     long_description=open('README.md').read(),
-    download_url='https://github.com/xeroc/piston-cli/tarball/' + __VERSION__,
-    author='Fabian Schuh',
-    author_email='<Fabian@chainsquad.com>',
-    maintainer='Fabian Schuh',
-    maintainer_email='<Fabian@chainsquad.com>',
-    url='http://cli.piston.rocks',
-    keywords=['steem', 'library', 'api', 'rpc', 'cli'],
-    packages=["pistoncli"],
+    download_url='https://github.com/dpays/dpay-cli/tarball/' + __VERSION__,
+    author='Jared Rice Sr.',
+    author_email='<jared@benchx.io>',
+    maintainer='Jared Rice Sr.',
+    maintainer_email='<jared@benchx.io>',
+    url='http://docs.dpays.io',
+    keywords=['dpay', 'library', 'api', 'rpc', 'cli'],
+    packages=["dpaycli"],
     # https://github.com/pallets/flask/issues/1562
     zip_safe=False,
     classifiers=[
@@ -31,11 +31,11 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'piston = pistoncli.__main__:main',
+            'dpaypy = dpaycli.__main__:main',
         ],
     },
     install_requires=[
-        "piston-lib>=0.5.2",
+        "dpay-lib>=0.5.2",
         "prettytable==0.7.2",
         "colorama==0.3.6",
     ],

@@ -1,4 +1,4 @@
 websockets==2.0
-piston_lib
-piston_cli
+dpay_lib
+dpay_cli
 sphinx_rtd_theme

@@ -2,7 +2,7 @@
 Coldstorage
 ***********
 
-With release 0.3.2, piston now supports **offline signing** for
+With release 0.3.2, dpaypy now supports **offline signing** for
 coldstorage. The procedure consists of three basic steps.
 
 1. **preparation of the (unsigned) transaction**
@@ -14,7 +14,7 @@ Let's go through the details real quick:
 Preparation of the (unsigned) transaction
 =========================================
 
-Any transaction that piston can do (post, reply, edit, upvote, downvote,
+Any transaction that dpaypy can do (post, reply, edit, upvote, downvote,
 transfer, powerup, powerdown, powerdownroute, convert, allow, disallow,
 newaccount, updatememokey, etc.) can be generated **without** actually
 signing them using the ``-x`` flag. The command will return a couple
@@ -29,7 +29,7 @@ by adding ``-e 300`` (300 seconds = 5 minutes)!
 
 ::
 
-    $ piston -e 300 -x transfer fabian 0.1 SBD > unsigned-transaction.json
+    $ dpaypy -e 300 -x transfer stan 0.1 BBD > unsigned-transaction.json
 
 This gives you 5 minutes for your procedure. If you can't make it in 5
 minutes, increase the ``300`` and try again.
@@ -41,14 +41,14 @@ A simple example looks like this:
 
 ::
 
-    $ piston -x -e 300 transfer fabian 0.1 SBD
+    $ dpaypy -x -e 300 transfer stan 0.1 BBD
     {'expiration': '2016-09-07T08:17:19',
      'extensions': [],
      'operations': [['transfer',
-                     {'amount': '0.100 SBD',
-                      'from': 'xeroc',
+                     {'amount': '0.100 BBD',
+                      'from': 'jared',
                       'memo': '',
-                      'to': 'fabian'}]],
+                      'to': 'stan'}]],
      'ref_block_num': 38340,
      'ref_block_prefix': 336529008,
      'signatures': [],
@@ -63,14 +63,14 @@ your transaction, there are a few more informations returned, namely:
 
     {
      [...]
-     'missing_signatures': ['STM6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD',
-                            'STM8HCf7QLUexogEviN8x1SpKRhFwg2sc8LrWuJqv7QsmWrua6ZyR'],
-     'required_authorities': {'fabian': {'account_auths': [],
-                                         'key_auths': [['STM8HCf7QLUexogEviN8x1SpKRhFwg2sc8LrWuJqv7QsmWrua6ZyR',
+     'missing_signatures': ['DWB6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD',
+                            'DWB8HCf7QLUexogEviN8x1SpKRhFwg2sc8LrWuJqv7QsmWrua6ZyR'],
+     'required_authorities': {'stan': {'account_auths': [],
+                                         'key_auths': [['DWB8HCf7QLUexogEviN8x1SpKRhFwg2sc8LrWuJqv7QsmWrua6ZyR',
                                                         1]],
                                          'weight_threshold': 1},
-                              'xeroc': {'account_auths': [['fabian', 1]],
-                                        'key_auths': [['STM6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD',
+                              'jared': {'account_auths': [['stan', 1]],
+                                        'key_auths': [['DWB6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD',
                                                        1]],
                                         'weight_threshold': 2}},
     }
@@ -86,7 +86,7 @@ have it signed using your key there by using:
 
 ::
 
-    piston sign --file unsigned-transaction.json > signed-transaction.json
+    dpaypy sign --file unsigned-transaction.json > signed-transaction.json
 
 The command will return the signed transaction which will look like
 this:
@@ -96,10 +96,10 @@ this:
     {'expiration': '2016-09-07T08:25:48',
      'extensions': [],
      'operations': [['transfer',
-                     {'amount': '0.001 SBD',
-                      'from': 'xeroc',
+                     {'amount': '0.001 BBD',
+                      'from': 'jared',
                       'memo': '',
-                      'to': 'fabian'}]],
+                      'to': 'stan'}]],
      'ref_block_num': 38510,
      'ref_block_prefix': 3441950962,
      'signatures': ['2071716bc5655d5327524004e33d340757cae067fcd30728484c21c605e26e3d0b548ca8b433af3037246084e67addbb726f45ef8d3fdb6e6b3e81415899bd762c']}
@@ -115,7 +115,7 @@ by using
 
 ::
 
-    piston broadcast --file signed-transaction.json
+    dpaypy broadcast --file signed-transaction.json
 
 Unless you obtain an error, your transaction was transmitted to the
 network and will shortly after be added to a block.

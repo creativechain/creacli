@@ -1,11 +1,11 @@
 ****************************
-Public API this.piston.rocks
+Public API dpayd.dpays.io
 ****************************
 
-this.piston.rocks
+dpayd.dpays.io
 #################
 
-The public API node at ``this.piston.rocks`` serves as an *experimental endpoint*. It is offered for free to our best efforts.
+The public API node at ``dpayd.dpays.io`` serves as an *experimental endpoint*. It is offered for free to our best efforts.
 
 You may
 
@@ -20,33 +20,23 @@ You may not:
 Running your own node
 #####################
 
-You can run a similar node with rather low efforts assuming you know how to compile the `official steem daemon <https://github.com/steemit/steem/>`_
+You can run a similar node with rather low efforts assuming you know how to compile the `official dPay daemon <https://github.com/dpays/dpays/>`_
 
-Steemd Node
+dPayd Node
 ~~~~~~~~~~~
 
-This is the ``config.ini`` file for steemd:
+This is the ``config.ini`` file for dpayd:
 
 ::
 
     rpc-endpoint = 127.0.0.1:5090
 
-    seed-node=52.38.66.234:2001
-    seed-node=52.37.169.52:2001
-    seed-node=52.26.78.244:2001
-    seed-node=192.99.4.226:2001
-    seed-node=46.252.27.1:1337
-    seed-node=81.89.101.133:2001
-    seed-node=52.4.250.181:39705
-    seed-node=85.214.65.220:2001
-    seed-node=104.199.157.70:2001
-    seed-node=104.236.82.250:2001
-    seed-node=104.168.154.160:40696
-    seed-node=162.213.199.171:34191
-    seed-node=seed.steemed.net:2001
-    seed-node=steem.clawmap.com:2001
-    seed-node=seed.steemwitness.com:2001
-    seed-node=steem-seed1.abit-more.com:2001
+    seed-node=m.dpays.io:6620
+    seed-node=freedomfirst.dpays.io:6620
+    seed-node=michaelx.dpays.io:6620
+    seed-node=standpay.link:6620
+    seed-node=nmh.dpays.io:1337
+    seed-node=greatchain.dpays.io:6620
 
     enable-plugin = account_by_key
     enable-plugin = account_history
@@ -65,7 +55,7 @@ This opens up the port ``5090`` for localhost. Going forward, you can either ope
 Nginx Webserver
 ~~~~~~~~~~~~~~~
 
-``this.piston.rocks`` uses a nginx server to 
+``dpayd.dpays.io`` uses a nginx server to
 
 * provide a readable websocket url
 * provide SSL encryption
@@ -83,7 +73,7 @@ The configuration would look like this
 
    server {
        listen 443 ssl;
-       server_name this.piston.rocks;
+       server_name dpayd.dpays.io;
        root /var/www/html/;
 
        keepalive_timeout 65;
@@ -92,8 +82,8 @@ The configuration would look like this
        tcp_nopush on;
        tcp_nodelay on;
 
-       ssl_certificate /etc/letsencrypt/live/this.piston.rocks/fullchain.pem;
-       ssl_certificate_key /etc/letsencrypt/live/this.piston.rocks/privkey.pem;
+       ssl_certificate /etc/letsencrypt/live/dpayd.dpays.io/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/dpayd.dpays.io/privkey.pem;
        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
        ssl_prefer_server_ciphers on;
        ssl_dhparam /etc/ssl/certs/dhparam.pem;
@@ -124,6 +114,5 @@ The configuration would look like this
 
    }
 
-As you can see from the ``upstream`` block, the node actually uses a load balancing and failover across **two** locally running ``steemd`` nodes.
+As you can see from the ``upstream`` block, the node actually uses a load balancing and failover across **two** locally running ``dpayd`` nodes.
 This allows to upgrade the code and reply one one while the other takes over the full traffic, and vise versa.
-

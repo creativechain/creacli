@@ -2,7 +2,7 @@
 Multisig
 ********
 
-Since the release of piston 0.3.3, you can use Steem's swiss
+Since the release of dpaypy 0.3.3, you can use dPay's swiss
 army knife for **multisig** transactions. This tutorial gives a brief
 introduction and shows how it works. But first, let me clarify a few
 technical terms:
@@ -38,13 +38,13 @@ account that is jointly owned by a group of people.
 What are authorites and permissions?
 ====================================
 
-On Steem, there are 3 permissions:
+On dPay, there are 3 permissions:
 
 -  **active**: the active permission can move funds and trade in the
    internal exchange as well as change all permission authorities
    (except for the owner permission)
 -  **posting**: the posting permission is required for posting and
-   voting on Steem
+   voting on dPay
 -  **owner**: the owner permission is the super administrator and can
    change and overwrite all other permissions
 
@@ -64,37 +64,37 @@ that are associated with the signatures exceed the threshold, the
 transaction is valid.
 
 For example: Let's say we take a look at the **active permission** of
-account **xeroc**. We can take a look at its current permissions using
-piston:
+account **jared**. We can take a look at its current permissions using
+dpaypy:
 
 ::
 
-    $ piston permissions xeroc
+    $ dpaypy permissions jared
     +------------+-----------+-----------------------------------------------------------+
     | Permission | Threshold |                                               Key/Account |
     +------------+-----------+-----------------------------------------------------------+
-    |      owner |         2 |                                                fabian (1) |
-    |            |           | STM7mgtsF5XPU9tokFpEz2zN9sQ89oAcRfcaSkZLsiqfWMtRDNKkc (1) |
+    |      owner |         2 |                                          nomoreheroes (1) |
+    |            |           | DWB7mgtsF5XPU9tokFpEz2zN9sQ89oAcRfcaSkZLsiqfWMtRDNKkc (1) |
     +------------+-----------+-----------------------------------------------------------+
-    |     active |         2 |                                                fabian (1) |
-    |            |           | STM6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD (1) |
+    |     active |         2 |                                          nomoreheroes (1) |
+    |            |           | DWB6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD (1) |
     +------------+-----------+-----------------------------------------------------------+
-    |    posting |         1 |                                             streemian (1) |
-    |            |           | STM6xpuUdyoRkRJ1GQmrHeNiVC3KGadjrBayo25HaTyBxBCQNwG3j (1) |
-    |            |           | STM8aJtoKdTsrRrWg3PB9XsbsCgZbVeDhQS3VUM1jkcXfVSjbv4T8 (1) |
+    |    posting |         1 |                                          freedomfirst (1) |
+    |            |           | DWB6xpuUdyoRkRJ1GQmrHeNiVC3KGadjrBayo25HaTyBxBCQNwG3j (1) |
+    |            |           | DWB8aJtoKdTsrRrWg3PB9XsbsCgZbVeDhQS3VUM1jkcXfVSjbv4T8 (1) |
     +------------+-----------+-----------------------------------------------------------+
 
 We see that the threshold is *2* and there is one key and one account
 with each having weight *1*. This means that we require a signature from
-``STM6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD`` and from the
-active key of ``fabian``. to construct a valid transaction that spends
-from account ``xeroc``. And we will see below how that will work
+``DWB6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD`` and from the
+active key of ``nomoreheroes``. to construct a valid transaction that spends
+from account ``jared``. And we will see below how that will work
 
 Setting up a multisig account
 =============================
 
 So, in order to do multisig transactions, we first need a
-multi-authority/multi-sig account. We can use piston to set this up.
+multi-authority/multi-sig account. We can use dpaypy to set this up.
 
 **Remark**: Since we are changing permissions of accounts here, I
 **highly** recommend to use this with a temporary account first and also
@@ -108,13 +108,13 @@ or active permission and only if you feel comfortable, change the
 Adding an authority
 -------------------
 
-We can add a named account or a public key using ``piston allow``. We
+We can add a named account or a public key using ``dpaypy allow``. We
 need to define the affected account as well as the permission to modify.
 
 ::
 
-    piston -dx allow --account xeroc --permission active fabian --weight 1
-    piston -dx allow --account xeroc --permission active STM6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD --weight 1
+    dpaypy -dx allow --account jared --permission active nomoreheroes --weight 1
+    dpaypy -dx allow --account jared --permission active DWB6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD --weight 1
 
 These transaction will only add another authority to the permission with
 the provided weight.
@@ -127,25 +127,25 @@ To change the threshold of your account, you need to use the
 
 ::
 
-    piston -dx allow --account xeroc --permission active dantheman --weight 1 --threshold 2
+    dpaypy -dx allow --account jared --permission active nickeles --weight 1 --threshold 2
 
 This will change the threshold.
 
 Verify the multisig account
 ===========================
 
-Using ``piston permissions`` we can take a look at the end result of our
+Using ``dpaypy permissions`` we can take a look at the end result of our
 actions:
 
 ::
 
-    piston permissions <accountname>
+    dpaypy permissions <accountname>
 
 Spending funds from a multisig account
 ======================================
 
-Spending funds from a multisig account is as easy as `using piston for
-coldstorage </piston/@xeroc/piston-howto-use-it-for-coldstorage>`__. The
+Spending funds from a multisig account is as easy as `using dpaypy for
+coldstorage </dpaypy/@jared/dpaypy-howto-use-it-for-coldstorage>`__. The
 major difference is that you need to transfer the **partially** signed
 transaction between multiple parties.
 
@@ -160,7 +160,7 @@ Let's create an unsigned transaction using
 
 ::
 
-    piston -x transfer --account xeroc fabian 0.001 SBD > unsigned-transaction.json
+    dpaypy -x transfer --account jared nomoreheroes 0.001 BBD > unsigned-transaction.json
 
 Send the ``unsigned-transaction.json`` file to all relevant parties and
 let them sign the transaction
@@ -173,7 +173,7 @@ available keys using
 
 ::
 
-    piston sign --file unsigned-transaction.json
+    dpaypy sign --file unsigned-transaction.json
 
 The result can be safely send to the initiator or be broadcasted if all
 required transaction have been added.
@@ -194,10 +194,10 @@ form below and can then broadcast it.
     {'expiration': '2016-09-07T09:16:22',
      'extensions': [],
      'operations': [['transfer',
-                     {'amount': '0.001 SBD',
-                      'from': 'xeroc',
+                     {'amount': '0.001 BBD',
+                      'from': 'jared',
                       'memo': '',
-                      'to': 'fabian'}]],
+                      'to': 'nomoreheroes'}]],
      'ref_block_num': 39520,
      'ref_block_prefix': 4016647731,
      'signatures': ['1f52fe34142a421ff711f0ddf29b0f782b74b68d9330380b464f44dbf59ab291b208f9969ec4bd215570b796e4f036d1a5ab37b84cdf2d9ad4d36162a799ebcd8f',
@@ -213,8 +213,7 @@ broadcast the transaction using
 
 ::
 
-    piston broadcast --file signed-transaction.json
+    dpaypy broadcast --file signed-transaction.json
 
 The operation should (if the signatures are sufficient and valid) be
 executed within seconds.
-

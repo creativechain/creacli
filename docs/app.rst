@@ -1,16 +1,16 @@
 *****************
-Piston Executable
+dPayPy Executable
 *****************
 
-Swiss army knife for interacting with the STEEM blockchain.
+Swiss army knife for interacting with the dPay blockchain.
 
 Quickstart
 ##########
 
-You can start using piston by going throug out Steem hosted quickstart
+You can start using 'dpaypy' by going through out dPay hosted quick start
 guide. Just run::
 
-    piston read @xeroc/piston-cli-quickstart
+    dpaypy read @jared/dpay-cli-quickstart
 
 Available Commands
 ##################
@@ -18,13 +18,13 @@ Available Commands
 Adding keys (for posting)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Piston comes with its own encrypted wallet to which keys need to be
+dPayPy comes with its own encrypted wallet to which keys need to be
 added:::
 
-    piston addkey
+    dpaypy addkey
 
 On first run, you will be asked to provide a new passphrase that you
-will need to provide every time you want to post on the Steem network.
+will need to provide every time you want to post on the dPay network.
 If you chose an *empty* password, your keys will be stored in plain text
 which allows automated posting but exposes your private key to your
 local user.
@@ -34,12 +34,12 @@ List available Keys and accounts
 
 You can list the installed keys using:::
 
-    piston listkeys
+    dpaypy listkeys
 
 This command will give the list of public keys to which the private keys
 are available.::
 
-    piston listaccounts
+    dpaypy listaccounts
 
 This command tries to resolve the public keys into account names
 registered on the network (experimental).
@@ -47,39 +47,39 @@ registered on the network (experimental).
 Configuration
 ~~~~~~~~~~~~~
 
-``piston`` comes with its owne configuration:::
+``dpaypy`` comes with its own configuration:::
 
-    piston set default_voter <account-name>
-    piston set default_author <account-name>
+    dpaypy set default_voter <account-name>
+    dpaypy set default_author <account-name>
 
-All configuration variables are provided with ``piston set --help``
+All configuration variables are provided with ``dpaypy set --help``
 You can see your local configuration by calling::
 
-    piston config
+    dpaypy config
 
 Listing
 ~~~~~~~
 
-``piston`` can list, sort, and filter for posts on the STEEM blockchain.
+``dpaypy`` can list, sort, and filter for posts on the dPay blockchain.
 You can read about the parameters by::
 
-    piston list --help
+    dpaypy list --help
 
 Example:::
 
-    $ piston list --limit 3 --sort payout
+    $ dpaypy list --limit 3 --sort payout
     +----------------------------------------+------------------------------------------------+----------+---------+------------------+---------------+
     | identifier                             | title                                          | category | replies |            votes |       payouts |
     +----------------------------------------+------------------------------------------------+----------+---------+------------------+---------------+
-    | @donaldtrump/lets-talk-politics        | Let's Talk Politics and the U.S. 2016 Election | politics |    20   | 1020791260074419 | 14106.752 SBD |
-    | @nextgencrypto/steem-price-speculation | STEEM Price Speculation                        | steem    |    14   |  777027533714240 | 11675.872 SBD |
-    | @clayop/lets-request-steem-to-poloniex | Let's Request STEEM to Poloniex                | steem    |    8    |  988929602909199 | 10530.426 SBD |
+    | @donaldtrump/lets-talk-politics        | Let's Talk Politics and the U.S. 2016 Election | politics |    20   | 1020791260074419 | 14106.752 BBD |
+    | @nextgencrypto/bex-price-speculation   | BEX Price Speculation                          | dpay     |    14   |  777027533714240 | 11675.872 BBD |
+    | @clayop/lets-request-bex-to-poloniex   | Let's Request BEX to Poloniex                  | dpay     |    8    |  988929602909199 | 10530.426 BBD |
     +----------------------------------------+------------------------------------------------+----------+---------+------------------+---------------+
 
 Reading
 ~~~~~~~
 
-The subcommand ``read`` allows to read posts and replies from STEEM by
+The subcommand ``read`` allows to read posts and replies from dPay by
 providing the post *identifier*. The identifier takes the form::
 
     @author/permlink
@@ -92,44 +92,44 @@ The subcommands takes the optional parameters:
 
 See examples:::
 
-    $ piston read "@xeroc/piston-readme"
+    $ dpaypy read "@jared/dpaypy-readme"
 
     [this readme]
 
-    $ piston read "@xeroc/python-steem-0-1" --comments
+    $ dpaypy read "@jared/dpay-python" --comments
 
      ---
      author: puppies
-     permlink: re-python-steem-0-1
-     reply: '@puppies/re-python-steem-0-1'
+     permlink: re-dpay-python
+     reply: '@puppies/re-dpay-python'
      ---
 
-     Great work Xeroc.  Your libraries make working with graphene chains truly a joy.
+     Great work Jared.  Your libraries make working with graphene chains truly a joy.
        ---
-       author: xeroc
-       permlink: re-puppies-re-python-stem-0-1
-       reply: '@xeroc/re-puppies-re-python-stem-0-1'
+       author: jared
+       permlink: test-post
+       reply: '@jared/test-post'
        ---
-       
+
        Thank you, I enjoy writing python a lot myself!
      ---
-     author: dantheman
-     permlink: re-xeroc-python-steem-0-1-20160414t145522693z
-     reply: '@dantheman/re-xeroc-python-steem-0-1-20160414t145522693z'
+     author: nomoreheroes
+     permlink: re-jared-dpay-python-20160414t145522693z
+     reply: '@dantheman/re-jared-dpay-python-20160414t145522693z'
      ---
 
-     This is great work xeroc!  Thanks for supporting steem!
+     This is great work jared!  Thanks for supporting !
 
 Categories
 ~~~~~~~~~~
 
 Existing categories can be listed via:::
 
-    piston categories --limit 10
+    dpaypy categories --limit 10
 
 Please see the corresponding help page for further options:::
 
-    piston categories --help
+    dpaypy categories --help
 
 Posting
 ~~~~~~~
@@ -145,8 +145,8 @@ wallet.
 
 Additionally, a ``--category`` can be added as well.::
 
-    echo "Texts" | piston post --author "<author>" --category "<category>" --title "<posttitle>" --permlink "<permlink>"
-    cat filename | piston post --author "<author>" --category "<category>" --title "<posttitle>" --permlink "<permlink>"
+    echo "Texts" | dpaypy post --author "<author>" --category "<category>" --title "<posttitle>" --permlink "<permlink>"
+    cat filename | dpaypy post --author "<author>" --category "<category>" --title "<posttitle>" --permlink "<permlink>"
 
 If you want to provide mulitple tags to your post, you can add it to the
 frontmatter like this:::
@@ -157,7 +157,7 @@ frontmatter like this:::
    title: .......
    tags:
      - introduceyourself
-     - steemonsteroids
+     - dpay
      - art
    ---
 
@@ -173,21 +173,21 @@ The ``replyto`` parameter takes the following form:::
 
 E.g:::
 
-    echo "Texts" | piston reply --file - "@xeroc/python-steem-0.1.1" --author "<author>"
-    cat filename | piston reply --file - "@xeroc/python-steem-0.1.1" --author "<author>"
+    echo "Texts" | dpaypy reply --file - "@jared/dpay-python" --author "<author>"
+    cat filename | dpaypy reply --file - "@jared/dpay-python" --author "<author>"
 
 If you want to use your favorit ``EDITOR``, you can do this by:::
 
-    piston reply "@xeroc/python-steem-0.1.1"
+    dpaypy reply "@jared/dpay-python"
 
 Editing
 ~~~~~~~
 
-With piston, you can edit your own posts with your favorite text editor
+With dpaypy, you can edit your own posts with your favorite text editor
 (as defined in the environmental variable ``EDITOR``):::
 
-    $ piston "@xeroc/edit-test" 
-    $ EDITOR="nano" piston "@xeroc/edit-test" 
+    $ dpaypy "@jared/edit-test"
+    $ EDITOR="nano" dpaypy "@jared/edit-test"
 
 If you want to replace your entire post and not *patch* it, you can add
 the ``--replace`` flag.
@@ -195,11 +195,11 @@ the ``--replace`` flag.
 Voting
 ~~~~~~
 
-With ``piston``, you can up-/downvote any post with your installed
+With ``dpaypy``, you can up-/downvote any post with your installed
 accounts:::
 
-    piston upvote --voter <voter> <identifier>
-    piston downvote --voter <voter> <identifier>
+    dpaypy upvote --voter <voter> <identifier>
+    dpaypy downvote --voter <voter> <identifier>
 
 providing the post *identifier*. The identifier takes the form::
 
@@ -211,59 +211,59 @@ You can further define the weight (default 100%) manually with
 Replies
 ~~~~~~~
 
-``piston`` can show replies to posts made by any author:::
+``dpaypy`` can show replies to posts made by any author:::
 
-    piston replies --author xeroc
+    dpaypy replies --author jared
 
 If ``--author`` is not provided, the *default* author as defined with
-``piston set author`` will be taken. Further options are: ``--limit``.
+``dpaypy set author`` will be taken. Further options are: ``--limit``.
 
-Transfer Steem
+Transfer BEX
 ~~~~~~~~~~~~~~
 
-STEEM can be transfered via::
+BEX can be transfered via::
 
-    piston transfer receipient 100.000 STEEM
+    dpaypy transfer receipient 100.000 BEX
 
 If ``--author`` is not provided, the *default* account as defined with
-``piston set author`` will be taken.
+``dpaypy set author`` will be taken.
 
-Buy/Sell STEEM/SBD
+Buy/Sell BEX/BBD
 ~~~~~~~~~~~~~~~~~~
 
 You can of course sell your assets in the internal decentralized exchange that
-is integrated into the STEEM blockchain by using:::
+is integrated into the BEX blockchain by using:::
 
-    piston buy <amount> STEEM <price in SBD per STEEM>
-    piston buy <amount> SBD <price in SBD per STEEM>
+    dpaypy buy <amount> BEX <price in BBD per BEX>
+    dpaypy buy <amount> BBD <price in BBD per BEX>
 
-    piston sell <amount> STEEM <price in SBD per STEEM>
-    piston sell <amount> SBD <price in SBD per STEEM>
+    dpaypy sell <amount> BEX <price in BBD per BEX>
+    dpaypy sell <amount> BBD <price in BBD per BEX>
 
 Powerup/Powerdown
 ~~~~~~~~~~~~~~~~~
 
-You can powerup/down your account with piston using:::
+You can powerup/down your account with dpaypy using:::
 
-    piston powerup 100   # in STEEM
-    piston powerdown 10000   # in VESTS
+    dpaypy powerup 100   # in BEX
+    dpaypy powerdown 10000   # in VESTS
 
 If ``--author``/``--to`` are not provided, the *default* account as defined with
-``piston set author`` will be taken.
+``dpaypy set author`` will be taken.
 
 To route your powerdows to another account automatically, you can use
 ``powerdownroute``. Read more in the corresponding help::
 
-   piston powerdownroute -h
+   dpaypy powerdownroute -h
 
 Convert
 ~~~~~~~
 
-This method allows to convert SteemDollar to STEEM using the internal convertion
+This method allows to convert BEXDollar to BEX using the internal conversion
 rate after 1 week. Note, that when you convert, you will obtain the
-corresponding amount of STEEM only after waiting 1 week. ::
+corresponding amount of BEX only after waiting 1 week. ::
 
-    piston convert --account <account>
+    dpaypy convert --account <account>
 
 
 Balances
@@ -271,26 +271,26 @@ Balances
 
 Get an account's balance with::
 
-    piston balance <account>
+    dpaypy balance <account>
 
 If ``<account>`` is not provided, the *default* account will be taken.
 
 Interest
 ~~~~~~~~
 
-SteemDollar pay interest. You can see the details for any account using:::
+BEXDollar pay interest. You can see the details for any account using:::
 
-    piston interest <account>
+    dpaypy interest <account>
 
 History
 ~~~~~~~
 
 You can get an accounts history by using::
 
-    piston history <account>
+    dpaypy history <account>
 
 Furthermore you can filter by ``types`` and limit the result by
-transaction numer. More information can be found by calling ``piston
+transaction number. More information can be found by calling ``dpaypy
 history -h``.
 
 
@@ -299,21 +299,21 @@ Permissions
 
 Any account permission can be inspected using::
 
-    piston permissions [<account>]
+    dpaypy permissions [<account>]
 
 The take the following form::
 
     +------------+-----------+-----------------------------------------------------------+
     | Permission | Threshold |                                               Key/Account |
     +------------+-----------+-----------------------------------------------------------+
-    |      owner |         2 |                                                fabian (1) |
-    |            |           | STM7mgtsF5XPU9tokFpEz2zN9sQ89oAcRfcaSkZLsiqfWMtRDNKkc (1) |
+    |      owner |         2 |                                                 jared (1) |
+    |            |           | DWB7mgtsF5XPU9tokFpEz2zN9sQ89oAcRfcaSkZLsiqfWMtRDNKkc (1) |
     +------------+-----------+-----------------------------------------------------------+
-    |     active |         1 | STM6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD (1) |
+    |     active |         1 | DWB6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD (1) |
     +------------+-----------+-----------------------------------------------------------+
-    |    posting |         1 |                                             streemian (1) |
-    |            |           | STM6xpuUdyoRkRJ1GQmrHeNiVC3KGadjrBayo25HaTyBxBCQNwG3j (1) |
-    |            |           | STM8aJtoKdTsrRrWg3PB9XsbsCgZbVeDhQS3VUM1jkcXfVSjbv4T8 (1) |
+    |    posting |         1 |                                          nomoreheroes (1) |
+    |            |           | DWB6xpuUdyoRkRJ1GQmrHeNiVC3KGadjrBayo25HaTyBxBCQNwG3j (1) |
+    |            |           | DWB8aJtoKdTsrRrWg3PB9XsbsCgZbVeDhQS3VUM1jkcXfVSjbv4T8 (1) |
     +------------+-----------+-----------------------------------------------------------+
 
 The permissions are either **owner** (full control over the account),
@@ -328,20 +328,20 @@ Allow/Disallow
 
 Permissions can be changed using:::
 
-    piston allow --account <account> --weight 1 --permission posting --threshold 1 <foreign_account>
-    piston disallow --permission <permissions> <foreign_account>
+    dpaypy allow --account <account> --weight 1 --permission posting --threshold 1 <foreign_account>
+    dpaypy disallow --permission <permissions> <foreign_account>
 
 More details and the default parameters can be found via:::
 
-    piston allow --help
-    piston disallow --help
+    dpaypy allow --help
+    dpaypy disallow --help
 
 Update Memo Key
 ~~~~~~~~~~~~~~~
 
 The memo key of your account can be updated with
 
-    piston updatememokey --key <KEY>
+    dpaypy updatememokey --key <KEY>
 
 If no ``key`` is provided, it will ask for a password from which the
 key will be derived
@@ -349,17 +349,17 @@ key will be derived
 Create a new account
 ~~~~~~~~~~~~~~~~~~~~
 
-Piston let's you create new accounts on the Steem blockchain.
+dPayPy let's you create new accounts on the dPay blockchain.
 
-.. note:: 
+.. note::
 
     Creating new accounts will cost you a fee!
 
 It works like this:
 
-    piston newaccount <accountname>
+    dpaypy newaccount <accountname>
 
-and it will ask you to provide a new password. During creation, piston
+and it will ask you to provide a new password. During creation, dpaypy
 will derive the new keys from the password (and the account name) and
 store them in the wallet (except for the owner key)
 
@@ -371,9 +371,9 @@ store them in the wallet (except for the owner key)
 Import Account
 ~~~~~~~~~~~~~~
 
-You can import your existing account into piston by using
+You can import your existing account into dpaypy by using
 
-    piston importaccount --account <accountname>
+    dpaypy importaccount --account <accountname>
 
 It will ask you to provide the passphrase from which the private key
 will be derived. If you already have a private key, you can use `addkey`
@@ -388,48 +388,48 @@ These feature is described in :doc:`<coldstorage.rst>` and :doc:`<multisig.rst>`
 
 Approve/Disapprove Witnesses
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-With piston, you can also approve and disapprove witnesses who are
-producing blocks on the Steem blockchain:::
+With dpaypy, you can also approve and disapprove witnesses who are
+producing blocks on the dPay blockchain:::
 
-    piston approvewitness <witnessname>
-    piston disapprovewitness <witnessname>
+    dpaypy approvewitness <witnessname>
+    dpaypy disapprovewitness <witnessname>
 
 Info
 ~~~~
-Piston can read data from the blockchain and present it to the user in
+dPayPy can read data from the blockchain and present it to the user in
 tabular form. It can automatically identify:
 
-* block numbers (``1000021``)
-* account names (``piston``)
-* public keys (``STMxxxxxxxxxx``)
+* block numbers (``340``)
+* account names (``dpaypy``)
+* public keys (``DWBxxxxxxxxxx``)
 * post identifiers (``@<accountname>/<permlink>``)
 * general blockchain parameters
 
 The corresponding data can be presented using:::
 
-    piston info [block_num [account name [pubkey [identifier]]]]
+    dpaypy info [block_num [account name [pubkey [identifier]]]]
 
-Resteem
+Repost
 ~~~~~~~
-Existing posts can be resteemed using:::
+Existing posts can be reposted using:::
 
-    piston resteem [--account <account>] @author/permlink
+    dpaypy repost [--account <account>] @author/permlink
 
 Follow/Unfollow
 ~~~~~~~~~~~~~~~
 You can follow and unfollow someones blog posts by:::
 
-    piston follow <accountname>
-    piston unfollow <accountname>
+    dpaypy follow <accountname>
+    dpaypy unfollow <accountname>
 
 Profile
 ~~~~~~~
-Piston can help you set your profile variables (through
+dPayPy can help you set your profile variables (through
 ``json_metadata``):::
 
-    piston setprofile profile.url "http://chainsquad.com"
-    piston setprofile --pair "profile.url=http://chainsquad.com" "profile.name=ChainSquad GmbH" 
+    dpaypy setprofile profile.url "http://chainsquad.com"
+    dpaypy setprofile --pair "profile.url=http://chainsquad.com" "profile.name=ChainSquad GmbH"
 
 Keys can be removed with:::
 
-    piston delprofile profile.url
+    dpaypy delprofile profile.url

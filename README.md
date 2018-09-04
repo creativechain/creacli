@@ -1,45 +1,31 @@
 # UNMAINTAINED
 
-This library is unmaintained, do not build productive buisness with it!
+This library is unmaintained, do not build productive business with it!
 Please not the disclaimer in the license file!
 
-# Piston for Steem
+# dPayPy for dPay
 
-Swiss army knife for interacting with the STEEM blockchain.
-
-[![rtd master](https://readthedocs.org/projects/piston/badge/?version=latest)](http://piston.readthedocs.io/en/latest/)
-[![codecov](https://codecov.io/gh/xeroc/piston/branch/master/graph/badge.svg)](https://codecov.io/gh/xeroc/piston)
-[![Travis master](https://travis-ci.org/xeroc/piston.png?branch=master)](https://travis-ci.org/xeroc/piston)
-[![Travis develop](https://travis-ci.org/xeroc/piston.png?branch=develop)](https://travis-ci.org/xeroc/piston)
-
-[![PyPI](https://img.shields.io/pypi/dm/piston-cli.svg?maxAge=2592000)]()
-[![PyPI](https://img.shields.io/pypi/dw/piston-cli.svg?maxAge=2592000)]()
-
-**Develop**
-
-[![docs develop](https://readthedocs.org/projects/piston/badge/?version=develop)](http://piston.readthedocs.io/en/develop/)
-[![Travis develop](https://travis-ci.org/xeroc/piston.png?branch=develop)](https://travis-ci.org/xeroc/piston)
-[![codecov develop](https://codecov.io/gh/xeroc/piston/branch/develop/graph/badge.svg)](https://codecov.io/gh/xeroc/piston)
+Swiss army knife for interacting with the dPay blockchain.
 
 ## Quick-Start
 
-A quickstart guide can be found on STEEM: [\@xeroc/piston](https://steemit.com/piston/@xeroc/piston)
+A quickstart guide can be found on dPay: [docs.dpays.io](https://docs.dpays.io/cli/)
 
 ## Installation
 
 ```
-pip3 install piston-cli
+pip3 install dpay-cli
 ```
 
 ## Documentation
 
-The full-length documentation of the cli tool can be found on [http://cli.piston.rocks](http://cli.piston.rocks).
-API documentation of the library is located at [http://lib.piston.rocks](http://lib.piston.rocks).
+The full-length documentation of the cli tool can be found on [docs.dpays.io](https://docs.dpays.io/cli/).
+API documentation of the library is located at [docs.dpays.io](https://docs.dpays.io/python-lib/).
 
 ## Public API
 
-The public API node at `this.piston.rocks` serves as an experimental
-endpoint. 
+The public API node at `dpayd.dpays.io` serves as an experimental
+endpoint.
 
 * Use it for prototyping of your tools
 * Use it for testing

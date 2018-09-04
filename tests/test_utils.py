@@ -1,5 +1,5 @@
 import unittest
-from piston.utils import (
+from dpaypy.utils import (
     constructIdentifier,
     sanitizePermlink,
     derivePermlink,

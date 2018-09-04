@@ -3,19 +3,19 @@
    :alt: alternate text
    :align: center
 
-Piston - The Swiss army knife for the Steem network
+dPayPy - The Swiss army knife for the dPay network
 ===================================================
 
-Piston is a tool to interact with the STEEM network using Python 3 and
-piston-lib.
+dPayPy is a tool to interact with the dPay network using Python 3 and
+dpay-lib.
 
-* **piston-cli's** home is `github.com/xeroc/piston-cli <https://github.com/xeroc/piston-cli>`_
-* **piston-lib's** home is `github.com/xeroc/piston-lib <https://github.com/xeroc/piston-lib>`_
+* **dpay-cli's** home is `github.com/dpays/dpay-cli <https://github.com/dpays/dpay-cli>`_
+* **dpay-lib's** home is `github.com/dpays/dpay-python-lib <https://github.com/dpays/dpay-python-lib>`_
 
 Command Line Tool
 -----------------
 
-The command line tool that is bundled with this package is called ``piston`` and helps you
+The command line tool that is bundled with this package is called ``dpaypy`` and helps you
 
 * browse,
 * read,
@@ -23,9 +23,9 @@ The command line tool that is bundled with this package is called ``piston`` and
 * comment, and
 * deal with your funds
 
-in the Steem network. After installation, you can get the full list of features with::
+in the dPay network. After installation, you can get the full list of features with::
 
-    $ piston --help
+    $ dpaypy --help
 
 General
 ========

@@ -6,23 +6,23 @@ import argparse
 import json
 import re
 from pprint import pprint
-from pistonbase.account import PrivateKey, PublicKey, Address
-import pistonbase.transactions as transactions
-from piston.storage import configStorage as config
-from piston.utils import (
+from dpaypybase.account import PrivateKey, PublicKey, Address
+import dpaypybase.transactions as transactions
+from dpaypy.storage import configStorage as config
+from dpaypy.utils import (
     resolveIdentifier,
     yaml_parse_file,
     formatTime,
     strfage,
 )
-from piston.steem import Steem
-from piston.amount import Amount
-from piston.account import Account
-from piston.post import Post
-from piston.blockchain import Blockchain
-from piston.block import Block
-from piston.dex import Dex
-from piston.witness import Witness
+from dpaypy.dpay import DPay
+from dpaypy.amount import Amount
+from dpaypy.account import Account
+from dpaypy.post import Post
+from dpaypy.blockchain import Blockchain
+from dpaypy.block import Block
+from dpaypy.dex import Dex
+from dpaypy.witness import Witness
 import frontmatter
 import time
 from prettytable import PrettyTable
@@ -37,7 +37,7 @@ from .ui import (
     print_permissions,
     get_terminal
 )
-from piston.exceptions import AccountDoesNotExistsException
+from dpaypy.exceptions import AccountDoesNotExistsException
 import pkg_resources  # part of setuptools
 
 
@@ -61,7 +61,7 @@ def main():
 
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        description="Command line tool to interact with the Steem network"
+        description="Command line tool to interact with the dPay network"
     )
 
     """
@@ -71,7 +71,7 @@ def main():
         '--node',
         type=str,
         default=config["node"],
-        help='Websocket URL for public Steem API (default: "wss://this.piston.rocks/")'
+        help='Websocket URL for public dPay API (default: "wss://dpayd.dpays.io/")'
     )
     parser.add_argument(
         '--rpcuser',
@@ -115,7 +115,7 @@ def main():
         '--version',
         action='version',
         version='%(prog)s {version}'.format(
-            version=pkg_resources.require("piston-cli")[0].version
+            version=pkg_resources.require("dpay-cli")[0].version
         )
     )
 
@@ -147,7 +147,7 @@ def main():
     """
         Command "info"
     """
-    parser_info = subparsers.add_parser('info', help='Show infos about piston and Steem')
+    parser_info = subparsers.add_parser('info', help='Show infos about dPayPy and dPay')
     parser_info.set_defaults(command="info")
     parser_info.add_argument(
         'objects',
@@ -212,7 +212,7 @@ def main():
     """
         Command "list"
     """
-    parser_list = subparsers.add_parser('list', help='List posts on Steem')
+    parser_list = subparsers.add_parser('list', help='List posts on dPay')
     parser_list.set_defaults(command="list")
     parser_list.add_argument(
         '--start',
@@ -272,12 +272,12 @@ def main():
     """
         Command "read"
     """
-    parser_read = subparsers.add_parser('read', help='Read a post on Steem')
+    parser_read = subparsers.add_parser('read', help='Read a post on dPay')
     parser_read.set_defaults(command="read")
     parser_read.add_argument(
         'post',
         type=str,
-        help='@author/permlink-identifier of the post to read (e.g. @xeroc/python-steem-0-1)'
+        help='@author/permlink-identifier of the post to read (e.g. @jared/dpay-python)'
     )
     parser_read.add_argument(
         '--full',
@@ -354,7 +354,7 @@ def main():
     reply.add_argument(
         'replyto',
         type=str,
-        help='@author/permlink-identifier of the post to reply to (e.g. @xeroc/python-steem-0-1)'
+        help='@author/permlink-identifier of the post to reply to (e.g. @jared/dpay-python)'
     )
     reply.add_argument(
         '--author',
@@ -390,7 +390,7 @@ def main():
     parser_edit.add_argument(
         'post',
         type=str,
-        help='@author/permlink-identifier of the post to edit to (e.g. @xeroc/python-steem-0-1)'
+        help='@author/permlink-identifier of the post to edit to (e.g. @jared/dpay-python)'
     )
     parser_edit.add_argument(
         '--author',
@@ -419,7 +419,7 @@ def main():
     parser_upvote.add_argument(
         'post',
         type=str,
-        help='@author/permlink-identifier of the post to upvote to (e.g. @xeroc/python-steem-0-1)'
+        help='@author/permlink-identifier of the post to upvote to (e.g. @jared/dpay-python)'
     )
     parser_upvote.add_argument(
         '--voter',
@@ -450,7 +450,7 @@ def main():
     parser_downvote.add_argument(
         'post',
         type=str,
-        help='@author/permlink-identifier of the post to downvote to (e.g. @xeroc/python-steem-0-1)'
+        help='@author/permlink-identifier of the post to downvote to (e.g. @jared/dpay-python)'
     )
     parser_downvote.add_argument(
         '--weight',
@@ -482,7 +482,7 @@ def main():
     """
         Command "transfer"
     """
-    parser_transfer = subparsers.add_parser('transfer', help='Transfer STEEM')
+    parser_transfer = subparsers.add_parser('transfer', help='Transfer BEX')
     parser_transfer.set_defaults(command="transfer")
     parser_transfer.add_argument(
         'to',
@@ -497,8 +497,8 @@ def main():
     parser_transfer.add_argument(
         'asset',
         type=str,
-        choices=["STEEM", "SBD", "GOLOS", "GBG"],
-        help='Asset to transfer (i.e. STEEM or SDB)'
+        choices=["BEX", "BBD", "GOLOS", "GBG"],
+        help='Asset to transfer (i.e. BEX or SDB)'
     )
     parser_transfer.add_argument(
         'memo',
@@ -518,7 +518,7 @@ def main():
     """
         Command "powerup"
     """
-    parser_powerup = subparsers.add_parser('powerup', help='Power up (vest STEEM as STEEM POWER)')
+    parser_powerup = subparsers.add_parser('powerup', help='Power up (vest BEX as BEX POWER)')
     parser_powerup.set_defaults(command="powerup")
     parser_powerup.add_argument(
         'amount',
@@ -543,7 +543,7 @@ def main():
     """
         Command "powerdown"
     """
-    parser_powerdown = subparsers.add_parser('powerdown', help='Power down (start withdrawing STEEM from piston POWER)')
+    parser_powerdown = subparsers.add_parser('powerdown', help='Power down (start withdrawing BEX from dPayPy POWER)')
     parser_powerdown.set_defaults(command="powerdown")
     parser_powerdown.add_argument(
         'amount',
@@ -567,7 +567,7 @@ def main():
         'to',
         type=str,
         default=config["default_author"],
-        help='The account receiving either VESTS/SteemPower or STEEM.'
+        help='The account receiving either VESTS/BexPower or BEX.'
     )
     parser_powerdownroute.add_argument(
         '--percentage',
@@ -585,18 +585,18 @@ def main():
         '--auto_vest',
         action='store_true',
         help=('Set to true if the from account should receive the VESTS as'
-              'VESTS, or false if it should receive them as STEEM.')
+              'VESTS, or false if it should receive them as BEX.')
     )
 
     """
         Command "convert"
     """
-    parser_convert = subparsers.add_parser('convert', help='Convert STEEMDollars to Steem (takes a week to settle)')
+    parser_convert = subparsers.add_parser('convert', help='Convert BEX Dollars to BEX (takes a week to settle)')
     parser_convert.set_defaults(command="convert")
     parser_convert.add_argument(
         'amount',
         type=float,
-        help='Amount of SBD to convert'
+        help='Amount of BBD to convert'
     )
     parser_convert.add_argument(
         '--account',
@@ -896,7 +896,7 @@ def main():
     """
         Command "buy"
     """
-    parser_buy = subparsers.add_parser('buy', help='Buy STEEM or SBD from the internal market')
+    parser_buy = subparsers.add_parser('buy', help='Buy BEX or BBD from the internal market')
     parser_buy.set_defaults(command="buy")
     parser_buy.add_argument(
         'amount',
@@ -906,13 +906,13 @@ def main():
     parser_buy.add_argument(
         'asset',
         type=str,
-        choices=["STEEM", "SBD", "GOLOS", "GBG"],
-        help='Asset to buy (i.e. STEEM or SDB)'
+        choices=["BEX", "BBD", "GOLOS", "GBG"],
+        help='Asset to buy (i.e. BEX or SDB)'
     )
     parser_buy.add_argument(
         'price',
         type=float,
-        help='Limit buy price denoted in (SBD per STEEM)'
+        help='Limit buy price denoted in (BBD per BEX)'
     )
     parser_buy.add_argument(
         '--account',
@@ -925,7 +925,7 @@ def main():
     """
         Command "sell"
     """
-    parser_sell = subparsers.add_parser('sell', help='Sell STEEM or SBD from the internal market')
+    parser_sell = subparsers.add_parser('sell', help='Sell BEX or BBD from the internal market')
     parser_sell.set_defaults(command="sell")
     parser_sell.add_argument(
         'amount',
@@ -935,13 +935,13 @@ def main():
     parser_sell.add_argument(
         'asset',
         type=str,
-        choices=["STEEM", "SBD", "GOLOS", "GBG"],
-        help='Asset to sell (i.e. STEEM or SDB)'
+        choices=["BEX", "BBD", "GOLOS", "GBG"],
+        help='Asset to sell (i.e. BEX or SDB)'
     )
     parser_sell.add_argument(
         'price',
         type=float,
-        help='Limit sell price denoted in (SBD per STEEM)'
+        help='Limit sell price denoted in (BBD per BEX)'
     )
     parser_sell.add_argument(
         '--account',
@@ -969,21 +969,21 @@ def main():
     )
 
     """
-        Command "resteem"
+        Command "repost"
     """
-    parser_resteem = subparsers.add_parser('resteem', help='Resteem an existing post')
-    parser_resteem.set_defaults(command="resteem")
-    parser_resteem.add_argument(
+    parser_repost = subparsers.add_parser('repost', help='Repost an existing post')
+    parser_redpay.set_defaults(command="repost")
+    parser_redpay.add_argument(
         'identifier',
         type=str,
-        help='@author/permlink-identifier of the post to resteem'
+        help='@author/permlink-identifier of the post to repost'
     )
-    parser_resteem.add_argument(
+    parser_redpay.add_argument(
         '--account',
         type=str,
         required=False,
         default=config["default_author"],
-        help='Resteem as this user (requires to have the key installed in the wallet)'
+        help='Repost as this user (requires to have the key installed in the wallet)'
     )
 
     """
@@ -1114,10 +1114,10 @@ def main():
         help='Account creation fee'
     )
     parser_witnessprops.add_argument(
-        '--sbd_interest_rate',
+        '--bbd_interest_rate',
         type=float,
         required=False,
-        help='SBD interest rate in percent'
+        help='BBD interest rate in percent'
     )
     parser_witnessprops.add_argument(
         '--url',
@@ -1160,10 +1160,10 @@ def main():
         help='Account creation fee'
     )
     parser_witnesscreate.add_argument(
-        '--sbd_interest_rate',
+        '--bbd_interest_rate',
         type=float,
         default=0.0,
-        help='SBD interest rate in percent'
+        help='BBD interest rate in percent'
     )
     parser_witnesscreate.add_argument(
         '--url',
@@ -1239,7 +1239,7 @@ def main():
         if args.command == "sign":
             options.update({"offline": True})
 
-        steem = Steem(**options)
+        dpay = DPay(**options)
 
     if args.command == "set":
         if (args.key in ["default_author",
@@ -1263,9 +1263,9 @@ def main():
             t.align = "l"
             blockchain = Blockchain(mode="head")
             info = blockchain.info()
-            median_price = steem.rpc.get_current_median_history_price()
-            steem_per_mvest = (
-                Amount(info["total_vesting_fund_steem"]).amount /
+            median_price = dpay.rpc.get_current_median_history_price()
+            dpay_per_mvest = (
+                Amount(info["total_vesting_fund_dpay"]).amount /
                 (Amount(info["total_vesting_shares"]).amount / 1e6)
             )
             price = (
@@ -1274,7 +1274,7 @@ def main():
             )
             for key in info:
                 t.add_row([key, info[key]])
-            t.add_row(["steem per mvest", steem_per_mvest])
+            t.add_row(["BEX per mvest", dpay_per_mvest])
             t.add_row(["internal price", price])
             print(t.get_string(sortby="Key"))
 
@@ -1329,15 +1329,15 @@ def main():
                     for key in sorted(witness):
                         value = witness[key]
                         if key in ["props",
-                                   "sbd_exchange_rate"]:
+                                   "bbd_exchange_rate"]:
                             value = json.dumps(value, indent=4)
                         t.add_row([key, value])
                     print(t)
                 except:
                     pass
             # Public Key
-            elif re.match("^STM.{48,55}$", obj):
-                account = steem.wallet.getAccountFromPublicKey(obj)
+            elif re.match("^DWB.{48,55}$", obj):
+                account = dpay.wallet.getAccountFromPublicKey(obj)
                 if account:
                     t = PrettyTable(["Account"])
                     t.align = "l"
@@ -1366,13 +1366,13 @@ def main():
                 print("Couldn't identify object to read")
 
     elif args.command == "changewalletpassphrase":
-        steem.wallet.changePassphrase()
+        dpay.wallet.changePassphrase()
 
     elif args.command == "addkey":
         if args.unsafe_import_key:
             for key in args.unsafe_import_key:
                 try:
-                    steem.wallet.addPrivateKey(key)
+                    dpay.wallet.addPrivateKey(key)
                 except Exception as e:
                     print(str(e))
         else:
@@ -1382,21 +1382,21 @@ def main():
                 if not wifkey:
                     break
                 try:
-                    steem.wallet.addPrivateKey(wifkey)
+                    dpay.wallet.addPrivateKey(wifkey)
                 except Exception as e:
                     print(str(e))
                     continue
 
-                installedKeys = steem.wallet.getPublicKeys()
+                installedKeys = dpay.wallet.getPublicKeys()
                 if len(installedKeys) == 1:
-                    name = steem.wallet.getAccountFromPublicKey(installedKeys[0])
+                    name = dpay.wallet.getAccountFromPublicKey(installedKeys[0])
                     print("=" * 30)
                     print("Setting new default user: %s" % name)
                     print()
                     print("You can change these settings with:")
-                    print("    piston set default_author <account>")
-                    print("    piston set default_voter <account>")
-                    print("    piston set default_account <account>")
+                    print("    dPayPy set default_author <account>")
+                    print("    dPayPy set default_voter <account>")
+                    print("    dPayPy set default_account <account>")
                     print("=" * 30)
                     config["default_author"] = name
                     config["default_voter"] = name
@@ -1409,22 +1409,22 @@ def main():
             "You may lose access to your account!"
         ):
             for pub in args.pub:
-                steem.wallet.removePrivateKeyFromPublicKey(pub)
+                dpay.wallet.removePrivateKeyFromPublicKey(pub)
 
     elif args.command == "getkey":
-        print(steem.wallet.getPrivateKeyForPublicKey(args.pub))
+        print(dpay.wallet.getPrivateKeyForPublicKey(args.pub))
 
     elif args.command == "listkeys":
         t = PrettyTable(["Available Key"])
         t.align = "l"
-        for key in steem.wallet.getPublicKeys():
+        for key in dpay.wallet.getPublicKeys():
             t.add_row([key])
         print(t)
 
     elif args.command == "listaccounts":
         t = PrettyTable(["Name", "Type", "Available Key"])
         t.align = "l"
-        for account in steem.wallet.getAccounts():
+        for account in dpay.wallet.getAccounts():
             t.add_row([
                 account["name"] or "n/a",
                 account["type"] or "n/a",
@@ -1434,7 +1434,7 @@ def main():
 
     elif args.command == "reply":
         from textwrap import indent
-        parent = steem.get_content(args.replyto)
+        parent = dpay.get_content(args.replyto)
         if parent["id"] == "0.0.0":
             print("Can't find post %s" % args.replyto)
             return
@@ -1458,7 +1458,7 @@ def main():
                 # to the EDITOR
                 return
 
-        pprint(steem.reply(
+        pprint(dpay.reply(
             meta["replyto"],
             message,
             title=meta["title"],
@@ -1472,8 +1472,8 @@ def main():
             "author": args.author or "required",
             "category": args.category or "required",
             "tags": args.tags or [],
-            "max_accepted_payout": "1000000.000 %s" % steem.symbol("SBD"),
-            "percent_steem_dollars": 100,
+            "max_accepted_payout": "1000000.000 %s" % dpay.symbol("BBD"),
+            "percent_dpay_dollars": 100,
             "allow_votes": True,
             "allow_curation_rewards": True,
         }
@@ -1483,8 +1483,8 @@ def main():
 
         # Default "app"
         if "app" not in json_meta:
-            version = pkg_resources.require("piston-cli")[0].version
-            json_meta["app"] = "piston/{}".format(version)
+            version = pkg_resources.require("dpay-cli")[0].version
+            json_meta["app"] = "dPayPy/{}".format(version)
 
         if not body:
             print("Empty body! Not posting!")
@@ -1499,7 +1499,7 @@ def main():
                 # to the EDITOR
                 return
 
-        pprint(steem.post(
+        pprint(dpay.post(
             meta["title"],
             body,
             author=meta["author"],
@@ -1508,7 +1508,7 @@ def main():
         ))
 
     elif args.command == "edit":
-        original_post = steem.get_content(args.post)
+        original_post = dpay.get_content(args.post)
 
         edited_message = None
         if original_post["id"] == "0.0.0":
@@ -1522,7 +1522,7 @@ def main():
         })
 
         meta, json_meta, edited_message = yaml_parse_file(args, initial_content=post)
-        pprint(steem.edit(
+        pprint(dpay.edit(
             args.post,
             edited_message,
             replace=args.replace,
@@ -1546,7 +1546,7 @@ def main():
         if args.parents:
             # FIXME inconsistency, use @author/permlink instead!
             dump_recursive_parents(
-                steem.rpc,
+                dpay.rpc,
                 post_author,
                 post_permlink,
                 args.parents,
@@ -1554,7 +1554,7 @@ def main():
             )
 
         if not args.comments and not args.parents:
-            post = steem.get_content(args.post)
+            post = dpay.get_content(args.post)
 
             if post["id"] == "0.0.0":
                 print("Can't find post %s" % args.post)
@@ -1567,7 +1567,7 @@ def main():
             if args.full:
                 meta = {}
                 for key in post:
-                    if key in ["steem", "body"]:
+                    if key in ["dpay", "body"]:
                         continue
                     if isinstance(post[key], Amount):
                         meta[key] = str(post[key])
@@ -1580,14 +1580,14 @@ def main():
 
         if args.comments:
             dump_recursive_comments(
-                steem.rpc,
+                dpay.rpc,
                 post_author,
                 post_permlink,
                 format=args.format
             )
 
     elif args.command == "categories":
-        categories = steem.get_categories(
+        categories = dpay.get_categories(
             sort=args.sort,
             begin=args.category,
             limit=args.limit
@@ -1604,7 +1604,7 @@ def main():
 
     elif args.command == "list":
         list_posts(
-            steem.get_posts(
+            dpay.get_posts(
                 limit=args.limit,
                 sort=args.sort,
                 category=args.category,
@@ -1617,13 +1617,13 @@ def main():
         if not args.author:
             print("Please specify an author via --author\n "
                   "or define your default author with:\n"
-                  "   piston set default_author x")
+                  "   dPayPy set default_author x")
         else:
-            discussions = steem.get_replies(args.author)
+            discussions = dpay.get_replies(args.author)
             list_posts(discussions[0:args.limit])
 
     elif args.command == "transfer":
-        pprint(steem.transfer(
+        pprint(dpay.transfer(
             args.to,
             args.amount,
             args.asset,
@@ -1632,26 +1632,26 @@ def main():
         ))
 
     elif args.command == "powerup":
-        pprint(steem.transfer_to_vesting(
+        pprint(dpay.transfer_to_vesting(
             args.amount,
             account=args.account,
             to=args.to
         ))
 
     elif args.command == "powerdown":
-        pprint(steem.withdraw_vesting(
+        pprint(dpay.withdraw_vesting(
             args.amount,
             account=args.account,
         ))
 
     elif args.command == "convert":
-        pprint(steem.convert(
+        pprint(dpay.convert(
             args.amount,
             account=args.account,
         ))
 
     elif args.command == "powerdownroute":
-        pprint(steem.set_withdraw_vesting_route(
+        pprint(dpay.set_withdraw_vesting_route(
             args.to,
             percentage=args.percentage,
             account=args.account,
@@ -1659,22 +1659,22 @@ def main():
         ))
 
     elif args.command == "balance":
-        t = PrettyTable(["Account", "STEEM", "SBD", "VESTS",
-                         "VESTS (in STEEM)", "Savings (STEEM)",
-                         "Savings (SBD)"])
+        t = PrettyTable(["Account", "BEX", "BBD", "VESTS",
+                         "VESTS (in BEX)", "Savings (BEX)",
+                         "Savings (BBD)"])
         t.align = "r"
         if isinstance(args.account, str):
             args.account = [args.account]
         for a in args.account:
-            b = steem.get_balances(a)
+            b = dpay.get_balances(a)
             t.add_row([
                 a,
                 b["balance"],
-                b["sbd_balance"],
+                b["bbd_balance"],
                 b["vesting_shares"],
-                b["vesting_shares_steem"],
+                b["vesting_shares_dpay"],
                 b["savings_balance"],
-                b["savings_sbd_balance"]
+                b["savings_bbd_balance"]
             ])
         print(t)
 
@@ -1722,14 +1722,14 @@ def main():
         if isinstance(args.account, str):
             args.account = [args.account]
         for a in args.account:
-            i = steem.interest(a)
+            i = dpay.interest(a)
 
             t.add_row([
                 a,
                 i["last_payment"],
                 "in %s" % strfage(i["next_payment_duration"]),
                 "%.1f%%" % i["interest_rate"],
-                "%.3f %s" % (i["interest"], steem.symbol("SBD")),
+                "%.3f %s" % (i["interest"], dpay.symbol("BBD")),
             ])
         print(t)
 
@@ -1739,10 +1739,10 @@ def main():
 
     elif args.command == "allow":
         if not args.foreign_account:
-            from pistonbase.account import PasswordKey
+            from dpaypybase.account import PasswordKey
             pwd = get_terminal(text="Password for Key Derivation: ", confirm=True)
-            args.foreign_account = format(PasswordKey(args.account, pwd, args.permission).get_public(), "STM")
-        pprint(steem.allow(
+            args.foreign_account = format(PasswordKey(args.account, pwd, args.permission).get_public(), "DWB")
+        pprint(dpay.allow(
             args.foreign_account,
             weight=args.weight,
             account=args.account,
@@ -1751,7 +1751,7 @@ def main():
         ))
 
     elif args.command == "disallow":
-        pprint(steem.disallow(
+        pprint(dpay.disallow(
             args.foreign_account,
             account=args.account,
             permission=args.permission,
@@ -1761,15 +1761,15 @@ def main():
     elif args.command == "updatememokey":
         if not args.key:
             # Loop until both match
-            from pistonbase.account import PasswordKey
+            from dpaypybase.account import PasswordKey
             pw = get_terminal(text="Password for Memo Key: ", confirm=True, allowedempty=False)
             memo_key = PasswordKey(args.account, pw, "memo")
-            args.key = format(memo_key.get_public_key(), "STM")
+            args.key = format(memo_key.get_public_key(), "DWB")
             memo_privkey = memo_key.get_private_key()
             # Add the key to the wallet
             if not args.nobroadcast:
-                steem.wallet.addPrivateKey(memo_privkey)
-        pprint(steem.update_memo_key(
+                dpay.wallet.addPrivateKey(memo_privkey)
+        pprint(dpay.update_memo_key(
             args.key,
             account=args.account
         ))
@@ -1789,14 +1789,14 @@ def main():
                     break
                 else:
                     print("Given Passphrases do not match!")
-        pprint(steem.create_account(
+        pprint(dpay.create_account(
             args.accountname,
             creator=args.account,
             password=pw,
         ))
 
     elif args.command == "importaccount":
-        from pistonbase.account import PasswordKey
+        from dpaypybase.account import PasswordKey
         import getpass
         password = getpass.getpass("Account Passphrase: ")
         account = Account(args.account)
@@ -1804,38 +1804,38 @@ def main():
 
         if "owner" in args.roles:
             owner_key = PasswordKey(args.account, password, role="owner")
-            owner_pubkey = format(owner_key.get_public_key(), "STM")
+            owner_pubkey = format(owner_key.get_public_key(), "DWB")
             if owner_pubkey in [x[0] for x in account["owner"]["key_auths"]]:
                 print("Importing owner key!")
                 owner_privkey = owner_key.get_private_key()
-                steem.wallet.addPrivateKey(owner_privkey)
+                dpay.wallet.addPrivateKey(owner_privkey)
                 imported = True
 
         if "active" in args.roles:
             active_key = PasswordKey(args.account, password, role="active")
-            active_pubkey = format(active_key.get_public_key(), "STM")
+            active_pubkey = format(active_key.get_public_key(), "DWB")
             if active_pubkey in [x[0] for x in account["active"]["key_auths"]]:
                 print("Importing active key!")
                 active_privkey = active_key.get_private_key()
-                steem.wallet.addPrivateKey(active_privkey)
+                dpay.wallet.addPrivateKey(active_privkey)
                 imported = True
 
         if "posting" in args.roles:
             posting_key = PasswordKey(args.account, password, role="posting")
-            posting_pubkey = format(posting_key.get_public_key(), "STM")
+            posting_pubkey = format(posting_key.get_public_key(), "DWB")
             if posting_pubkey in [x[0] for x in account["posting"]["key_auths"]]:
                 print("Importing posting key!")
                 posting_privkey = posting_key.get_private_key()
-                steem.wallet.addPrivateKey(posting_privkey)
+                dpay.wallet.addPrivateKey(posting_privkey)
                 imported = True
 
         if "memo" in args.roles:
             memo_key = PasswordKey(args.account, password, role="memo")
-            memo_pubkey = format(memo_key.get_public_key(), "STM")
+            memo_pubkey = format(memo_key.get_public_key(), "DWB")
             if memo_pubkey == account["memo_key"]:
                 print("Importing memo key!")
                 memo_privkey = memo_key.get_private_key()
-                steem.wallet.addPrivateKey(memo_privkey)
+                dpay.wallet.addPrivateKey(memo_privkey)
                 imported = True
 
         if not imported:
@@ -1850,7 +1850,7 @@ def main():
         else:
             tx = sys.stdin.read()
         tx = eval(tx)
-        pprint(steem.sign(tx))
+        pprint(dpay.sign(tx))
 
     elif args.command == "broadcast":
         if args.file and args.file != "-":
@@ -1861,7 +1861,7 @@ def main():
         else:
             tx = sys.stdin.read()
         tx = eval(tx)
-        steem.broadcast(tx)
+        dpay.broadcast(tx)
 
     elif args.command == "orderbook":
         if args.chart:
@@ -1872,13 +1872,13 @@ def main():
             except:
                 print("To use --chart, you need gnuplot and gnuplot-py installed")
                 sys.exit(1)
-        dex = Dex(steem)
+        dex = Dex(dpay)
         orderbook = dex.returnOrderBook()
 
         if args.chart:
             g = Gnuplot.Gnuplot()
-            g.title("Steem internal market - SBD:STEEM")
-            g.xlabel("price in SBD")
+            g.title("dPay internal market - BBD:BEX")
+            g.xlabel("price in BBD")
             g.ylabel("volume")
             g("""
                 set style data line
@@ -1886,47 +1886,47 @@ def main():
                 set border 15
             """)
             xbids = [x["price"] for x in orderbook["bids"]]
-            ybids = list(accumulate([x["sbd"] for x in orderbook["bids"]]))
+            ybids = list(accumulate([x["bbd"] for x in orderbook["bids"]]))
             dbids = Gnuplot.Data(xbids, ybids, with_="lines")
             xasks = [x["price"] for x in orderbook["asks"]]
-            yasks = list(accumulate([x["sbd"] for x in orderbook["asks"]]))
+            yasks = list(accumulate([x["bbd"] for x in orderbook["asks"]]))
             dasks = Gnuplot.Data(xasks, yasks, with_="lines")
             g("set terminal dumb")
             g.plot(dbids, dasks)  # write SVG data directly to stdout ...
 
         t = {}
         # Bid side
-        bidssteem = 0
-        bidssbd = 0
+        bidsdpay = 0
+        bidsbbd = 0
         t["bids"] = PrettyTable([
-            "SBD", "sum SBD", "STEEM", "sum STEEM", "price"
+            "BBD", "sum BBD", "BEX", "sum BEX", "price"
         ])
         for i, o in enumerate(orderbook["asks"]):
-            bidssbd += orderbook["bids"][i]["sbd"]
-            bidssteem += orderbook["bids"][i]["steem"]
+            bidsbbd += orderbook["bids"][i]["bbd"]
+            bidsdpay += orderbook["bids"][i]["dpay"]
             t["bids"].add_row([
-                "%.3f Ṩ" % orderbook["bids"][i]["sbd"],
-                "%.3f ∑" % bidssbd,
-                "%.3f ȿ" % orderbook["bids"][i]["steem"],
-                "%.3f ∑" % bidssteem,
+                "%.3f Ṩ" % orderbook["bids"][i]["bbd"],
+                "%.3f ∑" % bidsbbd,
+                "%.3f ȿ" % orderbook["bids"][i]["dpay"],
+                "%.3f ∑" % bidsdpay,
                 "%.3f Ṩ/ȿ" % orderbook["bids"][i]["price"],
             ])
 
         # Ask side
-        askssteem = 0
-        askssbd = 0
+        asksdpay = 0
+        asksbbd = 0
         t["asks"] = PrettyTable([
-            "price", "STEEM", "sum STEEM", "SBD", "sum SBD"
+            "price", "BEX", "sum BEX", "BBD", "sum BBD"
         ])
         for i, o in enumerate(orderbook["asks"]):
-            askssbd += orderbook["asks"][i]["sbd"]
-            askssteem += orderbook["asks"][i]["steem"]
+            asksbbd += orderbook["asks"][i]["bbd"]
+            asksdpay += orderbook["asks"][i]["dpay"]
             t["asks"].add_row([
                 "%.3f Ṩ/ȿ" % orderbook["asks"][i]["price"],
-                "%.3f ȿ" % orderbook["asks"][i]["steem"],
-                "%.3f ∑" % askssteem,
-                "%.3f Ṩ" % orderbook["asks"][i]["sbd"],
-                "%.3f ∑" % askssbd
+                "%.3f ȿ" % orderbook["asks"][i]["dpay"],
+                "%.3f ∑" % asksdpay,
+                "%.3f Ṩ" % orderbook["asks"][i]["bbd"],
+                "%.3f ∑" % asksbbd
             ])
 
         book = PrettyTable(["bids", "asks"])
@@ -1934,11 +1934,11 @@ def main():
         print(book)
 
     elif args.command == "buy":
-        if args.asset == steem.symbol("SBD"):
+        if args.asset == dpay.symbol("BBD"):
             price = 1.0 / args.price
         else:
             price = args.price
-        dex = Dex(steem)
+        dex = Dex(dpay)
         pprint(dex.buy(
             args.amount,
             args.asset,
@@ -1947,11 +1947,11 @@ def main():
         ))
 
     elif args.command == "sell":
-        if args.asset == steem.symbol("SBD"):
+        if args.asset == dpay.symbol("BBD"):
             price = 1.0 / args.price
         else:
             price = args.price
-        dex = Dex(steem)
+        dex = Dex(dpay)
         pprint(dex.sell(
             args.amount,
             args.asset,
@@ -1960,45 +1960,45 @@ def main():
         ))
 
     elif args.command == "cancel":
-        dex = Dex(steem)
+        dex = Dex(dpay)
         pprint(
             dex.cancel(args.orderid)
         )
 
     elif args.command == "approvewitness":
-        pprint(steem.approve_witness(
+        pprint(dpay.approve_witness(
             args.witness,
             account=args.account
         ))
 
     elif args.command == "disapprovewitness":
-        pprint(steem.disapprove_witness(
+        pprint(dpay.disapprove_witness(
             args.witness,
             account=args.account
         ))
 
-    elif args.command == "resteem":
-        pprint(steem.resteem(
+    elif args.command == "repost":
+        pprint(dpay.repost(
             args.identifier,
             account=args.account
         ))
 
     elif args.command == "follow":
-        pprint(steem.follow(
+        pprint(dpay.follow(
             args.follow,
             what=args.what,
             account=args.account
         ))
 
     elif args.command == "unfollow":
-        pprint(steem.unfollow(
+        pprint(dpay.unfollow(
             args.unfollow,
             what=args.what,
             account=args.account
         ))
 
     elif args.command == "setprofile":
-        from piston.profile import Profile
+        from dpaypy.profile import Profile
         keys = []
         values = []
         if args.pair:
@@ -2020,7 +2020,7 @@ def main():
         )
         account["json_metadata"].update(profile)
 
-        pprint(steem.update_account_profile(
+        pprint(dpay.update_account_profile(
             account["json_metadata"],
             account=args.account
         ))
@@ -2033,7 +2033,7 @@ def main():
         for var in args.variable:
             account["json_metadata"].remove(var)
 
-        pprint(steem.update_account_profile(
+        pprint(dpay.update_account_profile(
             account["json_metadata"],
             account=args.account
         ))
@@ -2043,13 +2043,13 @@ def main():
         witness = Witness(args.witness)
         props = witness["props"]
         if args.account_creation_fee:
-            props["account_creation_fee"] = str(Amount("%f STEEM" % args.account_creation_fee))
+            props["account_creation_fee"] = str(Amount("%f BEX" % args.account_creation_fee))
         if args.maximum_block_size:
             props["maximum_block_size"] = args.maximum_block_size
-        if args.sbd_interest_rate:
-            props["sbd_interest_rate"] = int(args.sbd_interest_rate * 100)
+        if args.bbd_interest_rate:
+            props["bbd_interest_rate"] = int(args.bbd_interest_rate * 100)
 
-        pprint(steem.witness_update(
+        pprint(dpay.witness_update(
             args.signing_key or witness["signing_key"],
             args.url or witness["url"],
             props,
@@ -2058,11 +2058,11 @@ def main():
 
     elif args.command == "witnesscreate":
         props = {
-            "account_creation_fee": str(Amount("%f STEEM" % args.account_creation_fee)),
+            "account_creation_fee": str(Amount("%f BEX" % args.account_creation_fee)),
             "maximum_block_size": args.maximum_block_size,
-            "sbd_interest_rate": int(args.sbd_interest_rate * 100)
+            "bbd_interest_rate": int(args.bbd_interest_rate * 100)
         }
-        pprint(steem.witness_update(
+        pprint(dpay.witness_update(
             args.signing_key,
             args.url,
             props,
