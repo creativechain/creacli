@@ -1,8 +1,3 @@
-# UNMAINTAINED
-
-This library is unmaintained, do not build productive business with it!
-Please not the disclaimer in the license file!
-
 # dPayPy for dPay
 
 Swiss army knife for interacting with the dPay blockchain.
