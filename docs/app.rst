@@ -10,7 +10,7 @@ Quickstart
 You can start using 'dpaypy' by going through out dPay hosted quick start
 guide. Just run::
 
-    dpaypy read @jared/dpay-cli-quickstart
+    dpaypy read @jared/dpaycli-quickstart
 
 Available Commands
 ##################

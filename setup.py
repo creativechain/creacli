@@ -8,11 +8,11 @@ assert sys.version_info[0] == 3, "dPayPy requires Python > 3"
 __VERSION__ = '0.1.1'
 
 setup(
-    name='dpay-cli',
+    name='dpaycli',
     version=__VERSION__,
     description='Command line tool to interface with the dPay network',
     long_description=open('README.md').read(),
-    download_url='https://github.com/dpays/dpay-cli/tarball/' + __VERSION__,
+    download_url='https://github.com/dpays/dpaycli/tarball/' + __VERSION__,
     author='Jared Rice Sr.',
     author_email='<jared@benchx.io>',
     maintainer='Jared Rice Sr.',

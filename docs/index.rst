@@ -9,7 +9,7 @@ dPayPy - The Swiss army knife for the dPay network
 dPayPy is a tool to interact with the dPay network using Python 3 and
 dpay-lib.
 
-* **dpay-cli's** home is `github.com/dpays/dpay-cli <https://github.com/dpays/dpay-cli>`_
+* **dpaycli's** home is `github.com/dpays/dpaycli <https://github.com/dpays/dpaycli>`_
 * **dpay-lib's** home is `github.com/dpays/dpay-python-lib <https://github.com/dpays/dpay-python-lib>`_
 
 Command Line Tool

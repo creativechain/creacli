@@ -9,7 +9,7 @@ A quickstart guide can be found on dPay: [docs.dpays.io](https://docs.dpays.io/c
 ## Installation
 
 ```
-pip3 install dpay-cli
+pip3 install dpaycli
 ```
 
 ## Documentation

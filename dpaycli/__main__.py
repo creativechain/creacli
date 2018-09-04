@@ -115,7 +115,7 @@ def main():
         '--version',
         action='version',
         version='%(prog)s {version}'.format(
-            version=pkg_resources.require("dpay-cli")[0].version
+            version=pkg_resources.require("dpaycli")[0].version
         )
     )
 
@@ -1483,7 +1483,7 @@ def main():
 
         # Default "app"
         if "app" not in json_meta:
-            version = pkg_resources.require("dpay-cli")[0].version
+            version = pkg_resources.require("dpaycli")[0].version
             json_meta["app"] = "dPayPy/{}".format(version)
 
         if not body:
