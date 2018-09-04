@@ -3,7 +3,7 @@
 from setuptools import setup
 import sys
 
-assert sys.version_info[0] == 3, "dPayPy requires Python > 3"
+assert sys.version_info[0] == 3, "dpaycli requires Python > 3"
 
 __VERSION__ = '0.1.1'
 
@@ -35,7 +35,7 @@ setup(
         ],
     },
     install_requires=[
-        "dpay-lib>=0.5.2",
+        "dpay-lib>=0.1.1",
         "prettytable==0.7.2",
         "colorama==0.3.6",
     ],
