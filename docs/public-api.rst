@@ -1,11 +1,11 @@
 ****************************
-Public API dpayd.dpays.io
+Public API d.dpays.io
 ****************************
 
-dpayd.dpays.io
+d.dpays.io
 #################
 
-The public API node at ``dpayd.dpays.io`` serves as an *experimental endpoint*. It is offered for free to our best efforts.
+The public API node at ``d.dpays.io`` serves as an *experimental endpoint*. It is offered for free to our best efforts.
 
 You may
 
@@ -55,7 +55,7 @@ This opens up the port ``5090`` for localhost. Going forward, you can either ope
 Nginx Webserver
 ~~~~~~~~~~~~~~~
 
-``dpayd.dpays.io`` uses a nginx server to
+``d.dpays.io`` uses a nginx server to
 
 * provide a readable websocket url
 * provide SSL encryption
@@ -73,7 +73,7 @@ The configuration would look like this
 
    server {
        listen 443 ssl;
-       server_name dpayd.dpays.io;
+       server_name d.dpays.io;
        root /var/www/html/;
 
        keepalive_timeout 65;
@@ -82,8 +82,8 @@ The configuration would look like this
        tcp_nopush on;
        tcp_nodelay on;
 
-       ssl_certificate /etc/letsencrypt/live/dpayd.dpays.io/fullchain.pem;
-       ssl_certificate_key /etc/letsencrypt/live/dpayd.dpays.io/privkey.pem;
+       ssl_certificate /etc/letsencrypt/live/d.dpays.io/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/d.dpays.io/privkey.pem;
        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
        ssl_prefer_server_ciphers on;
        ssl_dhparam /etc/ssl/certs/dhparam.pem;

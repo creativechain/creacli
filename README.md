@@ -4,7 +4,7 @@ Swiss army knife for interacting with the dPay blockchain.
 
 ## Quick-Start
 
-A quickstart guide can be found on dPay: [docs.dpays.io](https://docs.dpays.io/cli/)
+A quickstart guide can be found on dPay: [library.dpays.io](https://library.dpays.io/dpaycli/)
 
 ## Installation
 
@@ -14,12 +14,12 @@ pip3 install dpaycli
 
 ## Documentation
 
-The full-length documentation of the cli tool can be found on [docs.dpays.io](https://docs.dpays.io/cli/).
-API documentation of the library is located at [docs.dpays.io](https://docs.dpays.io/python-lib/).
+The full-length documentation of the cli tool can be found on [dPayCLI Python Docs](https://library.dpays.io/dpaycli/).
+API documentation of the library is located at [dPay Python Lib Docs](https://library.dpays.io/dpay-python-lib/).
 
 ## Public API
 
-The public API node at `dpayd.dpays.io` serves as an experimental
+The public API node at `d.dpays.io` serves as an experimental
 endpoint.
 
 * Use it for prototyping of your tools

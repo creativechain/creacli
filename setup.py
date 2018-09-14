@@ -5,7 +5,7 @@ import sys
 
 assert sys.version_info[0] == 3, "dpaycli requires Python > 3"
 
-__VERSION__ = '0.1.1'
+__VERSION__ = '0.1.7'
 
 setup(
     name='dpaycli',
@@ -17,7 +17,7 @@ setup(
     author_email='<jared@benchx.io>',
     maintainer='Jared Rice Sr.',
     maintainer_email='<jared@benchx.io>',
-    url='http://docs.dpays.io',
+    url='http://library.dpays.io/dpaycli',
     keywords=['dpay', 'library', 'api', 'rpc', 'cli'],
     packages=["dpaycli"],
     # https://github.com/pallets/flask/issues/1562
@@ -35,7 +35,7 @@ setup(
         ],
     },
     install_requires=[
-        "dpay-lib>=0.1.1",
+        "dpay-lib>=0.1.4",
         "prettytable==0.7.2",
         "colorama==0.3.6",
     ],

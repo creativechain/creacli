@@ -45,7 +45,7 @@ Standalone App
 
     app
 
-Howtows
+Howtwos
 ==============
 
 .. toctree::

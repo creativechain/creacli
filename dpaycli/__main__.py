@@ -497,8 +497,8 @@ def main():
     parser_transfer.add_argument(
         'asset',
         type=str,
-        choices=["BEX", "BBD", "GOLOS", "GBG"],
-        help='Asset to transfer (i.e. BEX or SDB)'
+        choices=["BEX", "BBD", "BET", "TBD"],
+        help='Asset to transfer (i.e. BEX or BBD)'
     )
     parser_transfer.add_argument(
         'memo',
@@ -543,7 +543,7 @@ def main():
     """
         Command "powerdown"
     """
-    parser_powerdown = subparsers.add_parser('powerdown', help='Power down (start withdrawing BEX from dPayPy POWER)')
+    parser_powerdown = subparsers.add_parser('powerdown', help='Power down (start withdrawing BEX from BEX POWER)')
     parser_powerdown.set_defaults(command="powerdown")
     parser_powerdown.add_argument(
         'amount',
@@ -935,8 +935,8 @@ def main():
     parser_sell.add_argument(
         'asset',
         type=str,
-        choices=["BEX", "BBD", "GOLOS", "GBG"],
-        help='Asset to sell (i.e. BEX or SDB)'
+        choices=["BEX", "BBD", "BET", "TBD"],
+        help='Asset to sell (i.e. BEX or BBD)'
     )
     parser_sell.add_argument(
         'price',
@@ -972,13 +972,13 @@ def main():
         Command "repost"
     """
     parser_repost = subparsers.add_parser('repost', help='Repost an existing post')
-    parser_redpay.set_defaults(command="repost")
-    parser_redpay.add_argument(
+    parser_repost.set_defaults(command="repost")
+    parser_repost.add_argument(
         'identifier',
         type=str,
         help='@author/permlink-identifier of the post to repost'
     )
-    parser_redpay.add_argument(
+    parser_repost.add_argument(
         '--account',
         type=str,
         required=False,
