@@ -5,7 +5,7 @@ import sys
 
 assert sys.version_info[0] == 3, "creacli requires Python > 3"
 
-__VERSION__ = '0.1.1'
+__VERSION__ = '0.1.2'
 
 setup(
     name='creacli',
