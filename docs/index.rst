@@ -3,19 +3,19 @@
    :alt: alternate text
    :align: center
 
-dPayPy - The Swiss army knife for the dPay network
+CreaPy - The Swiss army knife for the Crea network
 ===================================================
 
-dPayPy is a tool to interact with the dPay network using Python 3 and
-dpay-lib.
+CreaPy is a tool to interact with the Crea network using Python 3 and
+crea-lib.
 
-* **dpaycli's** home is `github.com/dpays/dpaycli <https://github.com/dpays/dpaycli>`_
-* **dpay-lib's** home is `github.com/dpays/dpay-python-lib <https://github.com/dpays/dpay-python-lib>`_
+* **creacli's** home is `github.com/creativechain/creacli <https://github.com/creativechain/creacli>`_
+* **crea-lib's** home is `github.com/creativechain/crea-python-lib <https://github.com/creativechain/crea-python-lib>`_
 
 Command Line Tool
 -----------------
 
-The command line tool that is bundled with this package is called ``dpaypy`` and helps you
+The command line tool that is bundled with this package is called ``creapy`` and helps you
 
 * browse,
 * read,
@@ -23,9 +23,9 @@ The command line tool that is bundled with this package is called ``dpaypy`` and
 * comment, and
 * deal with your funds
 
-in the dPay network. After installation, you can get the full list of features with::
+in the Crea network. After installation, you can get the full list of features with::
 
-    $ dpaypy --help
+    $ creapy --help
 
 General
 ========

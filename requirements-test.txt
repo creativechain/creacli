@@ -1,4 +1,4 @@
-dpay-graphenelib
-dpay-lib
+crea-graphenelib
+crea-lib
 pytest
 coverage

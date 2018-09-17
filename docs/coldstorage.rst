@@ -2,7 +2,7 @@
 Coldstorage
 ***********
 
-With release 0.3.2, dpaypy now supports **offline signing** for
+With release 0.3.2, creapy now supports **offline signing** for
 coldstorage. The procedure consists of three basic steps.
 
 1. **preparation of the (unsigned) transaction**
@@ -14,7 +14,7 @@ Let's go through the details real quick:
 Preparation of the (unsigned) transaction
 =========================================
 
-Any transaction that dpaypy can do (post, reply, edit, upvote, downvote,
+Any transaction that creapy can do (post, reply, edit, upvote, downvote,
 transfer, powerup, powerdown, powerdownroute, convert, allow, disallow,
 newaccount, updatememokey, etc.) can be generated **without** actually
 signing them using the ``-x`` flag. The command will return a couple
@@ -29,7 +29,7 @@ by adding ``-e 300`` (300 seconds = 5 minutes)!
 
 ::
 
-    $ dpaypy -e 300 -x transfer stan 0.1 BBD > unsigned-transaction.json
+    $ creapy -e 300 -x transfer stan 0.1 CBD > unsigned-transaction.json
 
 This gives you 5 minutes for your procedure. If you can't make it in 5
 minutes, increase the ``300`` and try again.
@@ -41,11 +41,11 @@ A simple example looks like this:
 
 ::
 
-    $ dpaypy -x -e 300 transfer stan 0.1 BBD
+    $ creapy -x -e 300 transfer stan 0.1 CBD
     {'expiration': '2016-09-07T08:17:19',
      'extensions': [],
      'operations': [['transfer',
-                     {'amount': '0.100 BBD',
+                     {'amount': '0.100 CBD',
                       'from': 'jared',
                       'memo': '',
                       'to': 'stan'}]],
@@ -86,7 +86,7 @@ have it signed using your key there by using:
 
 ::
 
-    dpaypy sign --file unsigned-transaction.json > signed-transaction.json
+    creapy sign --file unsigned-transaction.json > signed-transaction.json
 
 The command will return the signed transaction which will look like
 this:
@@ -96,7 +96,7 @@ this:
     {'expiration': '2016-09-07T08:25:48',
      'extensions': [],
      'operations': [['transfer',
-                     {'amount': '0.001 BBD',
+                     {'amount': '0.001 CBD',
                       'from': 'jared',
                       'memo': '',
                       'to': 'stan'}]],
@@ -115,7 +115,7 @@ by using
 
 ::
 
-    dpaypy broadcast --file signed-transaction.json
+    creapy broadcast --file signed-transaction.json
 
 Unless you obtain an error, your transaction was transmitted to the
 network and will shortly after be added to a block.

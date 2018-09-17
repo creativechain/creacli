@@ -1,16 +1,16 @@
 *****************
-dPayPy Executable
+CreaPy Executable
 *****************
 
-Swiss army knife for interacting with the dPay blockchain.
+Swiss army knife for interacting with the Crea blockchain.
 
 Quickstart
 ##########
 
-You can start using 'dpaypy' by going through out dPay hosted quick start
+You can start using 'creapy' by going through out Crea hosted quick start
 guide. Just run::
 
-    dpaypy read @jared/dpaycli-quickstart
+    creapy read @jared/creacli-quickstart
 
 Available Commands
 ##################
@@ -18,13 +18,13 @@ Available Commands
 Adding keys (for posting)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-dPayPy comes with its own encrypted wallet to which keys need to be
+CreaPy comes with its own encrypted wallet to which keys need to be
 added:::
 
-    dpaypy addkey
+    creapy addkey
 
 On first run, you will be asked to provide a new passphrase that you
-will need to provide every time you want to post on the dPay network.
+will need to provide every time you want to post on the Crea network.
 If you chose an *empty* password, your keys will be stored in plain text
 which allows automated posting but exposes your private key to your
 local user.
@@ -34,12 +34,12 @@ List available Keys and accounts
 
 You can list the installed keys using:::
 
-    dpaypy listkeys
+    creapy listkeys
 
 This command will give the list of public keys to which the private keys
 are available.::
 
-    dpaypy listaccounts
+    creapy listaccounts
 
 This command tries to resolve the public keys into account names
 registered on the network (experimental).
@@ -47,39 +47,39 @@ registered on the network (experimental).
 Configuration
 ~~~~~~~~~~~~~
 
-``dpaypy`` comes with its own configuration:::
+``creapy`` comes with its own configuration:::
 
-    dpaypy set default_voter <account-name>
-    dpaypy set default_author <account-name>
+    creapy set default_voter <account-name>
+    creapy set default_author <account-name>
 
-All configuration variables are provided with ``dpaypy set --help``
+All configuration variables are provided with ``creapy set --help``
 You can see your local configuration by calling::
 
-    dpaypy config
+    creapy config
 
 Listing
 ~~~~~~~
 
-``dpaypy`` can list, sort, and filter for posts on the dPay blockchain.
+``creapy`` can list, sort, and filter for posts on the Crea blockchain.
 You can read about the parameters by::
 
-    dpaypy list --help
+    creapy list --help
 
 Example:::
 
-    $ dpaypy list --limit 3 --sort payout
+    $ creapy list --limit 3 --sort payout
     +----------------------------------------+------------------------------------------------+----------+---------+------------------+---------------+
     | identifier                             | title                                          | category | replies |            votes |       payouts |
     +----------------------------------------+------------------------------------------------+----------+---------+------------------+---------------+
-    | @donaldtrump/lets-talk-politics        | Let's Talk Politics and the U.S. 2016 Election | politics |    20   | 1020791260074419 | 14106.752 BBD |
-    | @nextgencrypto/bex-price-speculation   | BEX Price Speculation                          | dpay     |    14   |  777027533714240 | 11675.872 BBD |
-    | @clayop/lets-request-bex-to-poloniex   | Let's Request BEX to Poloniex                  | dpay     |    8    |  988929602909199 | 10530.426 BBD |
+    | @donaldtrump/lets-talk-politics        | Let's Talk Politics and the U.S. 2016 Election | politics |    20   | 1020791260074419 | 14106.752 CBD |
+    | @nextgencrypto/bex-price-speculation   | CREA Price Speculation                          | crea     |    14   |  777027533714240 | 11675.872 CBD |
+    | @clayop/lets-request-bex-to-poloniex   | Let's Request CREA to Poloniex                  | crea     |    8    |  988929602909199 | 10530.426 CBD |
     +----------------------------------------+------------------------------------------------+----------+---------+------------------+---------------+
 
 Reading
 ~~~~~~~
 
-The subcommand ``read`` allows to read posts and replies from dPay by
+The subcommand ``read`` allows to read posts and replies from Crea by
 providing the post *identifier*. The identifier takes the form::
 
     @author/permlink
@@ -92,16 +92,16 @@ The subcommands takes the optional parameters:
 
 See examples:::
 
-    $ dpaypy read "@jared/dpaypy-readme"
+    $ creapy read "@jared/creapy-readme"
 
     [this readme]
 
-    $ dpaypy read "@jared/dpay-python" --comments
+    $ creapy read "@jared/crea-python" --comments
 
      ---
      author: puppies
-     permlink: re-dpay-python
-     reply: '@puppies/re-dpay-python'
+     permlink: re-crea-python
+     reply: '@puppies/re-crea-python'
      ---
 
      Great work Jared.  Your libraries make working with graphene chains truly a joy.
@@ -114,8 +114,8 @@ See examples:::
        Thank you, I enjoy writing python a lot myself!
      ---
      author: nomoreheroes
-     permlink: re-jared-dpay-python-20160414t145522693z
-     reply: '@dantheman/re-jared-dpay-python-20160414t145522693z'
+     permlink: re-jared-crea-python-20160414t145522693z
+     reply: '@dantheman/re-jared-crea-python-20160414t145522693z'
      ---
 
      This is great work jared!  Thanks for supporting !
@@ -125,11 +125,11 @@ Categories
 
 Existing categories can be listed via:::
 
-    dpaypy categories --limit 10
+    creapy categories --limit 10
 
 Please see the corresponding help page for further options:::
 
-    dpaypy categories --help
+    creapy categories --help
 
 Posting
 ~~~~~~~
@@ -145,8 +145,8 @@ wallet.
 
 Additionally, a ``--category`` can be added as well.::
 
-    echo "Texts" | dpaypy post --author "<author>" --category "<category>" --title "<posttitle>" --permlink "<permlink>"
-    cat filename | dpaypy post --author "<author>" --category "<category>" --title "<posttitle>" --permlink "<permlink>"
+    echo "Texts" | creapy post --author "<author>" --category "<category>" --title "<posttitle>" --permlink "<permlink>"
+    cat filename | creapy post --author "<author>" --category "<category>" --title "<posttitle>" --permlink "<permlink>"
 
 If you want to provide mulitple tags to your post, you can add it to the
 frontmatter like this:::
@@ -157,7 +157,7 @@ frontmatter like this:::
    title: .......
    tags:
      - introduceyourself
-     - dpay
+     - crea
      - art
    ---
 
@@ -173,21 +173,21 @@ The ``replyto`` parameter takes the following form:::
 
 E.g:::
 
-    echo "Texts" | dpaypy reply --file - "@jared/dpay-python" --author "<author>"
-    cat filename | dpaypy reply --file - "@jared/dpay-python" --author "<author>"
+    echo "Texts" | creapy reply --file - "@jared/crea-python" --author "<author>"
+    cat filename | creapy reply --file - "@jared/crea-python" --author "<author>"
 
 If you want to use your favorit ``EDITOR``, you can do this by:::
 
-    dpaypy reply "@jared/dpay-python"
+    creapy reply "@jared/crea-python"
 
 Editing
 ~~~~~~~
 
-With dpaypy, you can edit your own posts with your favorite text editor
+With creapy, you can edit your own posts with your favorite text editor
 (as defined in the environmental variable ``EDITOR``):::
 
-    $ dpaypy "@jared/edit-test"
-    $ EDITOR="nano" dpaypy "@jared/edit-test"
+    $ creapy "@jared/edit-test"
+    $ EDITOR="nano" creapy "@jared/edit-test"
 
 If you want to replace your entire post and not *patch* it, you can add
 the ``--replace`` flag.
@@ -195,11 +195,11 @@ the ``--replace`` flag.
 Voting
 ~~~~~~
 
-With ``dpaypy``, you can up-/downvote any post with your installed
+With ``creapy``, you can up-/downvote any post with your installed
 accounts:::
 
-    dpaypy upvote --voter <voter> <identifier>
-    dpaypy downvote --voter <voter> <identifier>
+    creapy upvote --voter <voter> <identifier>
+    creapy downvote --voter <voter> <identifier>
 
 providing the post *identifier*. The identifier takes the form::
 
@@ -211,59 +211,59 @@ You can further define the weight (default 100%) manually with
 Replies
 ~~~~~~~
 
-``dpaypy`` can show replies to posts made by any author:::
+``creapy`` can show replies to posts made by any author:::
 
-    dpaypy replies --author jared
+    creapy replies --author jared
 
 If ``--author`` is not provided, the *default* author as defined with
-``dpaypy set author`` will be taken. Further options are: ``--limit``.
+``creapy set author`` will be taken. Further options are: ``--limit``.
 
-Transfer BEX
+Transfer CREA
 ~~~~~~~~~~~~~~
 
-BEX can be transfered via::
+CREA can be transfered via::
 
-    dpaypy transfer receipient 100.000 BEX
+    creapy transfer receipient 100.000 CREA
 
 If ``--author`` is not provided, the *default* account as defined with
-``dpaypy set author`` will be taken.
+``creapy set author`` will be taken.
 
-Buy/Sell BEX/BBD
+Buy/Sell CREA/CBD
 ~~~~~~~~~~~~~~~~~~
 
 You can of course sell your assets in the internal decentralized exchange that
-is integrated into the BEX blockchain by using:::
+is integrated into the CREA blockchain by using:::
 
-    dpaypy buy <amount> BEX <price in BBD per BEX>
-    dpaypy buy <amount> BBD <price in BBD per BEX>
+    creapy buy <amount> CREA <price in CBD per CREA>
+    creapy buy <amount> CBD <price in CBD per CREA>
 
-    dpaypy sell <amount> BEX <price in BBD per BEX>
-    dpaypy sell <amount> BBD <price in BBD per BEX>
+    creapy sell <amount> CREA <price in CBD per CREA>
+    creapy sell <amount> CBD <price in CBD per CREA>
 
 Powerup/Powerdown
 ~~~~~~~~~~~~~~~~~
 
-You can powerup/down your account with dpaypy using:::
+You can powerup/down your account with creapy using:::
 
-    dpaypy powerup 100   # in BEX
-    dpaypy powerdown 10000   # in VESTS
+    creapy powerup 100   # in CREA
+    creapy powerdown 10000   # in VESTS
 
 If ``--author``/``--to`` are not provided, the *default* account as defined with
-``dpaypy set author`` will be taken.
+``creapy set author`` will be taken.
 
 To route your powerdows to another account automatically, you can use
 ``powerdownroute``. Read more in the corresponding help::
 
-   dpaypy powerdownroute -h
+   creapy powerdownroute -h
 
 Convert
 ~~~~~~~
 
-This method allows to convert BEXDollar to BEX using the internal conversion
+This method allows to convert CREADollar to CREA using the internal conversion
 rate after 1 week. Note, that when you convert, you will obtain the
-corresponding amount of BEX only after waiting 1 week. ::
+corresponding amount of CREA only after waiting 1 week. ::
 
-    dpaypy convert --account <account>
+    creapy convert --account <account>
 
 
 Balances
@@ -271,26 +271,26 @@ Balances
 
 Get an account's balance with::
 
-    dpaypy balance <account>
+    creapy balance <account>
 
 If ``<account>`` is not provided, the *default* account will be taken.
 
 Interest
 ~~~~~~~~
 
-BEXDollar pay interest. You can see the details for any account using:::
+CREADollar pay interest. You can see the details for any account using:::
 
-    dpaypy interest <account>
+    creapy interest <account>
 
 History
 ~~~~~~~
 
 You can get an accounts history by using::
 
-    dpaypy history <account>
+    creapy history <account>
 
 Furthermore you can filter by ``types`` and limit the result by
-transaction number. More information can be found by calling ``dpaypy
+transaction number. More information can be found by calling ``creapy
 history -h``.
 
 
@@ -299,7 +299,7 @@ Permissions
 
 Any account permission can be inspected using::
 
-    dpaypy permissions [<account>]
+    creapy permissions [<account>]
 
 The take the following form::
 
@@ -328,20 +328,20 @@ Allow/Disallow
 
 Permissions can be changed using:::
 
-    dpaypy allow --account <account> --weight 1 --permission posting --threshold 1 <foreign_account>
-    dpaypy disallow --permission <permissions> <foreign_account>
+    creapy allow --account <account> --weight 1 --permission posting --threshold 1 <foreign_account>
+    creapy disallow --permission <permissions> <foreign_account>
 
 More details and the default parameters can be found via:::
 
-    dpaypy allow --help
-    dpaypy disallow --help
+    creapy allow --help
+    creapy disallow --help
 
 Update Memo Key
 ~~~~~~~~~~~~~~~
 
 The memo key of your account can be updated with
 
-    dpaypy updatememokey --key <KEY>
+    creapy updatememokey --key <KEY>
 
 If no ``key`` is provided, it will ask for a password from which the
 key will be derived
@@ -349,7 +349,7 @@ key will be derived
 Create a new account
 ~~~~~~~~~~~~~~~~~~~~
 
-dPayPy let's you create new accounts on the dPay blockchain.
+CreaPy let's you create new accounts on the Crea blockchain.
 
 .. note::
 
@@ -357,9 +357,9 @@ dPayPy let's you create new accounts on the dPay blockchain.
 
 It works like this:
 
-    dpaypy newaccount <accountname>
+    creapy newaccount <accountname>
 
-and it will ask you to provide a new password. During creation, dpaypy
+and it will ask you to provide a new password. During creation, creapy
 will derive the new keys from the password (and the account name) and
 store them in the wallet (except for the owner key)
 
@@ -371,9 +371,9 @@ store them in the wallet (except for the owner key)
 Import Account
 ~~~~~~~~~~~~~~
 
-You can import your existing account into dpaypy by using
+You can import your existing account into creapy by using
 
-    dpaypy importaccount --account <accountname>
+    creapy importaccount --account <accountname>
 
 It will ask you to provide the passphrase from which the private key
 will be derived. If you already have a private key, you can use `addkey`
@@ -388,48 +388,48 @@ These feature is described in :doc:`<coldstorage.rst>` and :doc:`<multisig.rst>`
 
 Approve/Disapprove Witnesses
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-With dpaypy, you can also approve and disapprove witnesses who are
-producing blocks on the dPay blockchain:::
+With creapy, you can also approve and disapprove witnesses who are
+producing blocks on the Crea blockchain:::
 
-    dpaypy approvewitness <witnessname>
-    dpaypy disapprovewitness <witnessname>
+    creapy approvewitness <witnessname>
+    creapy disapprovewitness <witnessname>
 
 Info
 ~~~~
-dPayPy can read data from the blockchain and present it to the user in
+CreaPy can read data from the blockchain and present it to the user in
 tabular form. It can automatically identify:
 
 * block numbers (``340``)
-* account names (``dpaypy``)
+* account names (``creapy``)
 * public keys (``DWBxxxxxxxxxx``)
 * post identifiers (``@<accountname>/<permlink>``)
 * general blockchain parameters
 
 The corresponding data can be presented using:::
 
-    dpaypy info [block_num [account name [pubkey [identifier]]]]
+    creapy info [block_num [account name [pubkey [identifier]]]]
 
 Repost
 ~~~~~~~
 Existing posts can be reposted using:::
 
-    dpaypy repost [--account <account>] @author/permlink
+    creapy repost [--account <account>] @author/permlink
 
 Follow/Unfollow
 ~~~~~~~~~~~~~~~
 You can follow and unfollow someones blog posts by:::
 
-    dpaypy follow <accountname>
-    dpaypy unfollow <accountname>
+    creapy follow <accountname>
+    creapy unfollow <accountname>
 
 Profile
 ~~~~~~~
-dPayPy can help you set your profile variables (through
+CreaPy can help you set your profile variables (through
 ``json_metadata``):::
 
-    dpaypy setprofile profile.url "http://chainsquad.com"
-    dpaypy setprofile --pair "profile.url=http://chainsquad.com" "profile.name=ChainSquad GmbH"
+    creapy setprofile profile.url "http://chainsquad.com"
+    creapy setprofile --pair "profile.url=http://chainsquad.com" "profile.name=ChainSquad GmbH"
 
 Keys can be removed with:::
 
-    dpaypy delprofile profile.url
+    creapy delprofile profile.url

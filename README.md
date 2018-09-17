@@ -1,25 +1,25 @@
-# dPayPy for dPay
+# CreaPy for Crea
 
-Swiss army knife for interacting with the dPay blockchain.
+Swiss army knife for interacting with the Crea blockchain.
 
 ## Quick-Start
 
-A quickstart guide can be found on dPay: [library.dpays.io](https://library.dpays.io/dpaycli/)
+A quickstart guide can be found on Crea: [library.creas.io](https://library.creas.io/creacli/)
 
 ## Installation
 
 ```
-pip3 install dpaycli
+pip3 install creacli
 ```
 
 ## Documentation
 
-The full-length documentation of the cli tool can be found on [dPayCLI Python Docs](https://library.dpays.io/dpaycli/).
-API documentation of the library is located at [dPay Python Lib Docs](https://library.dpays.io/dpay-python-lib/).
+The full-length documentation of the cli tool can be found on [CreaCLI Python Docs](https://library.creas.io/creacli/).
+API documentation of the library is located at [Crea Python Lib Docs](https://library.creas.io/crea-python-lib/).
 
 ## Public API
 
-The public API node at `d.dpays.io` serves as an experimental
+The public API node at `d.creas.io` serves as an experimental
 endpoint.
 
 * Use it for prototyping of your tools

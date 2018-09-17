@@ -1,11 +1,11 @@
 ****************************
-Public API d.dpays.io
+Public API d.creas.io
 ****************************
 
-d.dpays.io
+d.creas.io
 #################
 
-The public API node at ``d.dpays.io`` serves as an *experimental endpoint*. It is offered for free to our best efforts.
+The public API node at ``d.creas.io`` serves as an *experimental endpoint*. It is offered for free to our best efforts.
 
 You may
 
@@ -20,23 +20,23 @@ You may not:
 Running your own node
 #####################
 
-You can run a similar node with rather low efforts assuming you know how to compile the `official dPay daemon <https://github.com/dpays/dpays/>`_
+You can run a similar node with rather low efforts assuming you know how to compile the `official Crea daemon <https://github.com/creativechain/creas/>`_
 
-dPayd Node
+Cread Node
 ~~~~~~~~~~~
 
-This is the ``config.ini`` file for dpayd:
+This is the ``config.ini`` file for cread:
 
 ::
 
     rpc-endpoint = 127.0.0.1:5090
 
-    seed-node=m.dpays.io:6620
-    seed-node=freedomfirst.dpays.io:6620
-    seed-node=michaelx.dpays.io:6620
-    seed-node=standpay.link:6620
-    seed-node=nmh.dpays.io:1337
-    seed-node=greatchain.dpays.io:6620
+    seed-node=m.creas.io:6620
+    seed-node=freedomfirst.creas.io:6620
+    seed-node=michaelx.creas.io:6620
+    seed-node=stancrea.link:6620
+    seed-node=nmh.creas.io:1337
+    seed-node=greatchain.creas.io:6620
 
     enable-plugin = account_by_key
     enable-plugin = account_history
@@ -55,7 +55,7 @@ This opens up the port ``5090`` for localhost. Going forward, you can either ope
 Nginx Webserver
 ~~~~~~~~~~~~~~~
 
-``d.dpays.io`` uses a nginx server to
+``d.creas.io`` uses a nginx server to
 
 * provide a readable websocket url
 * provide SSL encryption
@@ -73,7 +73,7 @@ The configuration would look like this
 
    server {
        listen 443 ssl;
-       server_name d.dpays.io;
+       server_name d.creas.io;
        root /var/www/html/;
 
        keepalive_timeout 65;
@@ -82,8 +82,8 @@ The configuration would look like this
        tcp_nopush on;
        tcp_nodelay on;
 
-       ssl_certificate /etc/letsencrypt/live/d.dpays.io/fullchain.pem;
-       ssl_certificate_key /etc/letsencrypt/live/d.dpays.io/privkey.pem;
+       ssl_certificate /etc/letsencrypt/live/d.creas.io/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/d.creas.io/privkey.pem;
        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
        ssl_prefer_server_ciphers on;
        ssl_dhparam /etc/ssl/certs/dhparam.pem;
@@ -114,5 +114,5 @@ The configuration would look like this
 
    }
 
-As you can see from the ``upstream`` block, the node actually uses a load balancing and failover across **two** locally running ``dpayd`` nodes.
+As you can see from the ``upstream`` block, the node actually uses a load balancing and failover across **two** locally running ``cread`` nodes.
 This allows to upgrade the code and reply one one while the other takes over the full traffic, and vise versa.

@@ -1,4 +1,4 @@
 websockets==2.0
-dpay_lib
-dpay_cli
+crea_lib
+crea_cli
 sphinx_rtd_theme

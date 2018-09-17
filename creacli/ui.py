@@ -4,9 +4,9 @@ from prettytable import PrettyTable, ALL as allBorders
 from textwrap import fill, TextWrapper
 import frontmatter
 import re
-from dpaypy.storage import configStorage as config
-from dpaypy.utils import constructIdentifier
-from dpaypy import dpay as stm
+from creapy.storage import configStorage as config
+from creapy.utils import constructIdentifier
+from creapy import crea as stm
 
 # For recursive display of a discussion thread (--comments + --parents)
 currentThreadDepth = 0
@@ -291,9 +291,9 @@ def format_operation_details(op, memos=False):
         if memos:
             memo = op[1]["memo"]
             if len(memo) > 0 and memo[0] == "#":
-                dpay = stm.DPay()
-                # memo = dpay.decode_memo(memo, op[1]["from"])
-                memo = dpay.decode_memo(memo, op)
+                crea = stm.DPay()
+                # memo = crea.decode_memo(memo, op[1]["from"])
+                memo = crea.decode_memo(memo, op)
             str_ += " (%s)" % memo
         return str_
     elif op[0] == "interest":

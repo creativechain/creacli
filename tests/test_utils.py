@@ -1,5 +1,5 @@
 import unittest
-from dpaypy.utils import (
+from creapy.utils import (
     constructIdentifier,
     sanitizePermlink,
     derivePermlink,

@@ -2,7 +2,7 @@
 Multisig
 ********
 
-Since the release of dpaypy 0.3.3, you can use dPay's swiss
+Since the release of creapy 0.3.3, you can use Crea's swiss
 army knife for **multisig** transactions. This tutorial gives a brief
 introduction and shows how it works. But first, let me clarify a few
 technical terms:
@@ -38,13 +38,13 @@ account that is jointly owned by a group of people.
 What are authorites and permissions?
 ====================================
 
-On dPay, there are 3 permissions:
+On Crea, there are 3 permissions:
 
 -  **active**: the active permission can move funds and trade in the
    internal exchange as well as change all permission authorities
    (except for the owner permission)
 -  **posting**: the posting permission is required for posting and
-   voting on dPay
+   voting on Crea
 -  **owner**: the owner permission is the super administrator and can
    change and overwrite all other permissions
 
@@ -65,11 +65,11 @@ transaction is valid.
 
 For example: Let's say we take a look at the **active permission** of
 account **jared**. We can take a look at its current permissions using
-dpaypy:
+creapy:
 
 ::
 
-    $ dpaypy permissions jared
+    $ creapy permissions jared
     +------------+-----------+-----------------------------------------------------------+
     | Permission | Threshold |                                               Key/Account |
     +------------+-----------+-----------------------------------------------------------+
@@ -94,7 +94,7 @@ Setting up a multisig account
 =============================
 
 So, in order to do multisig transactions, we first need a
-multi-authority/multi-sig account. We can use dpaypy to set this up.
+multi-authority/multi-sig account. We can use creapy to set this up.
 
 **Remark**: Since we are changing permissions of accounts here, I
 **highly** recommend to use this with a temporary account first and also
@@ -108,13 +108,13 @@ or active permission and only if you feel comfortable, change the
 Adding an authority
 -------------------
 
-We can add a named account or a public key using ``dpaypy allow``. We
+We can add a named account or a public key using ``creapy allow``. We
 need to define the affected account as well as the permission to modify.
 
 ::
 
-    dpaypy -dx allow --account jared --permission active nomoreheroes --weight 1
-    dpaypy -dx allow --account jared --permission active DWB6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD --weight 1
+    creapy -dx allow --account jared --permission active nomoreheroes --weight 1
+    creapy -dx allow --account jared --permission active DWB6quoHiVnmiDEXyz4fAsrNd28G6q7qBCitWbZGo4pTfQn8SwkzD --weight 1
 
 These transaction will only add another authority to the permission with
 the provided weight.
@@ -127,25 +127,25 @@ To change the threshold of your account, you need to use the
 
 ::
 
-    dpaypy -dx allow --account jared --permission active nickeles --weight 1 --threshold 2
+    creapy -dx allow --account jared --permission active nickeles --weight 1 --threshold 2
 
 This will change the threshold.
 
 Verify the multisig account
 ===========================
 
-Using ``dpaypy permissions`` we can take a look at the end result of our
+Using ``creapy permissions`` we can take a look at the end result of our
 actions:
 
 ::
 
-    dpaypy permissions <accountname>
+    creapy permissions <accountname>
 
 Spending funds from a multisig account
 ======================================
 
-Spending funds from a multisig account is as easy as `using dpaypy for
-coldstorage </dpaypy/@jared/dpaypy-howto-use-it-for-coldstorage>`__. The
+Spending funds from a multisig account is as easy as `using creapy for
+coldstorage </creapy/@jared/creapy-howto-use-it-for-coldstorage>`__. The
 major difference is that you need to transfer the **partially** signed
 transaction between multiple parties.
 
@@ -160,7 +160,7 @@ Let's create an unsigned transaction using
 
 ::
 
-    dpaypy -x transfer --account jared nomoreheroes 0.001 BBD > unsigned-transaction.json
+    creapy -x transfer --account jared nomoreheroes 0.001 CBD > unsigned-transaction.json
 
 Send the ``unsigned-transaction.json`` file to all relevant parties and
 let them sign the transaction
@@ -173,7 +173,7 @@ available keys using
 
 ::
 
-    dpaypy sign --file unsigned-transaction.json
+    creapy sign --file unsigned-transaction.json
 
 The result can be safely send to the initiator or be broadcasted if all
 required transaction have been added.
@@ -194,7 +194,7 @@ form below and can then broadcast it.
     {'expiration': '2016-09-07T09:16:22',
      'extensions': [],
      'operations': [['transfer',
-                     {'amount': '0.001 BBD',
+                     {'amount': '0.001 CBD',
                       'from': 'jared',
                       'memo': '',
                       'to': 'nomoreheroes'}]],
@@ -213,7 +213,7 @@ broadcast the transaction using
 
 ::
 
-    dpaypy broadcast --file signed-transaction.json
+    creapy broadcast --file signed-transaction.json
 
 The operation should (if the signatures are sufficient and valid) be
 executed within seconds.

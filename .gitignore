@@ -67,3 +67,4 @@ contrib/build
 contrib/dist
 contrib/src
 contrib/tmp
+.idea
