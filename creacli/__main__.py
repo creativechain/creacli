@@ -15,7 +15,7 @@ from creapy.utils import (
     formatTime,
     strfage,
 )
-from creapy.crea import DPay
+from creapy.crea import Crea
 from creapy.amount import Amount
 from creapy.account import Account
 from creapy.post import Post
@@ -1239,7 +1239,7 @@ def main():
         if args.command == "sign":
             options.update({"offline": True})
 
-        crea = DPay(**options)
+        crea = Crea(**options)
 
     if args.command == "set":
         if (args.key in ["default_author",
@@ -1886,10 +1886,10 @@ def main():
                 set border 15
             """)
             xbids = [x["price"] for x in orderbook["bids"]]
-            ybids = list(accumulate([x["bbd"] for x in orderbook["bids"]]))
+            ybids = list(accumulate([x["cbd"] for x in orderbook["bids"]]))
             dbids = Gnuplot.Data(xbids, ybids, with_="lines")
             xasks = [x["price"] for x in orderbook["asks"]]
-            yasks = list(accumulate([x["bbd"] for x in orderbook["asks"]]))
+            yasks = list(accumulate([x["cbd"] for x in orderbook["asks"]]))
             dasks = Gnuplot.Data(xasks, yasks, with_="lines")
             g("set terminal dumb")
             g.plot(dbids, dasks)  # write SVG data directly to stdout ...
@@ -1897,16 +1897,16 @@ def main():
         t = {}
         # Bid side
         bidscrea = 0
-        bidsbbd = 0
+        bidscbd = 0
         t["bids"] = PrettyTable([
             "CBD", "sum CBD", "CREA", "sum CREA", "price"
         ])
         for i, o in enumerate(orderbook["asks"]):
-            bidsbbd += orderbook["bids"][i]["bbd"]
+            bidscbd += orderbook["bids"][i]["cbd"]
             bidscrea += orderbook["bids"][i]["crea"]
             t["bids"].add_row([
-                "%.3f Ṩ" % orderbook["bids"][i]["bbd"],
-                "%.3f ∑" % bidsbbd,
+                "%.3f Ṩ" % orderbook["bids"][i]["cbd"],
+                "%.3f ∑" % bidscbd,
                 "%.3f ȿ" % orderbook["bids"][i]["crea"],
                 "%.3f ∑" % bidscrea,
                 "%.3f Ṩ/ȿ" % orderbook["bids"][i]["price"],
@@ -1914,19 +1914,19 @@ def main():
 
         # Ask side
         askscrea = 0
-        asksbbd = 0
+        askscbd = 0
         t["asks"] = PrettyTable([
             "price", "CREA", "sum CREA", "CBD", "sum CBD"
         ])
         for i, o in enumerate(orderbook["asks"]):
-            asksbbd += orderbook["asks"][i]["bbd"]
+            askscbd += orderbook["asks"][i]["cbd"]
             askscrea += orderbook["asks"][i]["crea"]
             t["asks"].add_row([
                 "%.3f Ṩ/ȿ" % orderbook["asks"][i]["price"],
                 "%.3f ȿ" % orderbook["asks"][i]["crea"],
                 "%.3f ∑" % askscrea,
-                "%.3f Ṩ" % orderbook["asks"][i]["bbd"],
-                "%.3f ∑" % asksbbd
+                "%.3f Ṩ" % orderbook["asks"][i]["cbd"],
+                "%.3f ∑" % askscbd
             ])
 
         book = PrettyTable(["bids", "asks"])

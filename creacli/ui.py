@@ -291,7 +291,7 @@ def format_operation_details(op, memos=False):
         if memos:
             memo = op[1]["memo"]
             if len(memo) > 0 and memo[0] == "#":
-                crea = stm.DPay()
+                crea = stm.Crea()
                 # memo = crea.decode_memo(memo, op[1]["from"])
                 memo = crea.decode_memo(memo, op)
             str_ += " (%s)" % memo
