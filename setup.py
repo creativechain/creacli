@@ -35,7 +35,7 @@ setup(
         ],
     },
     install_requires=[
-        "crea-lib>=0.1.0",
+        "crea-lib>=0.1.1",
         "prettytable==0.7.2",
         "colorama==0.3.6",
     ],
